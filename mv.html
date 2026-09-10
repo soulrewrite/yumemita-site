@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="梦限大 Mew Type 全部官方 MV / OP / ED 在线合集，附每日更新新番搬运。">
+<meta name="theme-color" content="#FF7788">
+<title>MV合集 | 夢限大みゅーたいぷ</title>
+<!-- 中日统一在线字体：Zen Maru Gothic（日圆体优先）/ M PLUS Rounded 1c / Noto Sans SC（中文） -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Zen+Maru+Gothic:wght@500;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* 官方代表色 */
+    --pink: #FF7788;
+    --blue: #2288DD;
+    --text: #1d1d1f;
+    --text-2: #6e6e73;
+    --glass: rgba(255,255,255,.78);
+    --glass-border: rgba(255,255,255,.75);
+    --shadow: 0 8px 32px rgba(0,0,0,.08);
+    --bili: #fb7299;
+    --radius: 24px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    color: var(--text);
+    font-family: "Zen Maru Gothic", "M PLUS Rounded 1c", "Noto Sans SC",
+                 "PingFang SC", "Microsoft YaHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    background: #f5f5f7; overflow-x: hidden; letter-spacing: .01em;
+  }
+  a { color: inherit; text-decoration: none; }
+  /* 细节与可访问性 */
+  ::selection { background: rgba(255,119,136,.3); }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: #d9d9de; border-radius: 999px; border: 2px solid #f5f5f7; }
+  ::-webkit-scrollbar-thumb:hover { background: #ff99a6; }
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--pink); outline-offset: 2px;
+  }
+  [id] { scroll-margin-top: 90px; } /* 锚点定位避开吸顶导航 */
+  h1, h2, h3, h4, .sec-title, .g-title, .nav a { font-weight: 700; }
+  h1, h2, h3, .g-title { font-weight: 800; }
+
+  .bg-blobs { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+  .bg-blobs::before, .bg-blobs::after {
+    content: ""; position: absolute; border-radius: 50%; filter: blur(90px); opacity: .5;
+  }
+  .bg-blobs::before { width: 55vw; height: 55vw; top: -20vw; right: -12vw;
+    background: radial-gradient(circle, rgba(255,119,136,.4), transparent 70%); }
+  .bg-blobs::after { width: 50vw; height: 50vw; bottom: -18vw; left: -12vw;
+    background: radial-gradient(circle, rgba(34,136,221,.35), transparent 70%); }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 5vw;
+    background: rgba(255,255,255,.55); backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: .5px solid rgba(0,0,0,.08);
+  }
+  .logo { font-weight: 700; font-size: 17px; }
+  .logo b { color: var(--pink); }
+  .logo i { font-style: normal; color: var(--blue); }
+  nav .links { display: flex; gap: 28px; font-size: 14px; color: var(--text-2); white-space: nowrap; }
+  nav .links a:hover { color: var(--text); }
+  nav .links a.active { color: var(--pink); }
+  nav .links a.hot { color: var(--pink); font-weight: 700; }
+
+  .page-head { padding: 66px 8vw 34px; }
+  .page-head h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 800; letter-spacing: -.01em; }
+  .page-head h1 em { font-style: normal;
+    background: linear-gradient(90deg, #FF7788, #2288DD);
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .page-head p { color: var(--text-2); margin-top: 10px; font-size: 15px; }
+
+  .wrap { padding: 0 8vw 90px; }
+
+  /* ============ 分组折叠（玻璃卡） ============ */
+  .group {
+    margin-bottom: 18px; border-radius: var(--radius); overflow: hidden;
+    background: var(--glass);
+    border: 1px solid var(--glass-border); box-shadow: var(--shadow);
+  }
+  .group-h {
+    display: flex; align-items: center; gap: 14px;
+    padding: 20px 24px; cursor: pointer; user-select: none; transition: background .2s;
+  }
+  .group-h:hover { background: rgba(255,255,255,.35); }
+  .group-h .arrow {
+    width: 0; height: 0; border-left: 7px solid var(--text-2);
+    border-top: 5px solid transparent; border-bottom: 5px solid transparent;
+    transition: transform .25s; flex-shrink: 0;
+  }
+  .group.open .group-h .arrow { transform: rotate(90deg); }
+  .group-h .g-title { font-size: 18px; font-weight: 700; }
+  .group-h .g-title em { font-style: normal;
+    background: linear-gradient(90deg, #FF7788, #2288DD);
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .group-h .g-count {
+    font-size: 12px; color: var(--text-2);
+    background: rgba(255,255,255,.6); border-radius: 999px; padding: 3px 12px;
+  }
+  .group-body { display: none; padding: 0 24px 22px; }
+  .group.open .group-body { display: block; }
+
+  /* ============ MV 条目 ============ */
+  .mv-item { border-top: .5px solid rgba(0,0,0,.06); }
+  .mv-item:first-child { border-top: none; }
+  .mv-h {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 4px; cursor: pointer; user-select: none; border-radius: 14px;
+    transition: background .2s;
+  }
+  .mv-h:hover { background: rgba(255,255,255,.4); }
+  .mv-h .cover {
+    width: 160px; aspect-ratio: 16/10; border-radius: 12px; overflow: hidden; flex-shrink: 0;
+    background: #000; position: relative; box-shadow: 0 4px 16px rgba(0,0,0,.12);
+  }
+  .mv-h .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mv-h .cover .mask {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    background: rgba(0,0,0,.25); opacity: 0; transition: opacity .2s;
+  }
+  .mv-h:hover .cover .mask { opacity: 1; }
+  .mv-h .cover .mask .play {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(251,114,153,.92); display: grid; place-items: center;
+  }
+  .mv-h .cover .mask .play::after {
+    content: ""; margin-left: 4px;
+    border-left: 16px solid #fff; border-top: 10px solid transparent; border-bottom: 10px solid transparent;
+  }
+  .mv-info { flex: 1; min-width: 0; }
+  .mv-info .t { font-size: 16px; font-weight: 600; line-height: 1.5; }
+  .mv-info .t .ja { color: var(--text-2); font-size: 12.5px; font-weight: 400; margin-left: 8px; }
+  .mv-info .meta { font-size: 12px; color: var(--text-2); margin-top: 5px; display: flex; flex-wrap: wrap; gap: 6px 14px; }
+  .mv-info .meta .tag {
+    color: var(--blue); background: rgba(34,136,221,.1);
+    padding: 1px 10px; border-radius: 999px; font-size: 11px;
+  }
+  .mv-h .expand {
+    flex-shrink: 0; width: 0; height: 0;
+    border-left: 6px solid var(--text-2);
+    border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+    transition: transform .25s; margin-right: 4px;
+  }
+  .mv-item.open .mv-h .expand { transform: rotate(90deg); }
+
+  /* 播放器 */
+  .mv-player { display: none; padding: 4px 4px 18px; }
+  .mv-item.open .mv-player { display: block; }
+  .mv-player .frame {
+    position: relative; width: 100%; aspect-ratio: 16/9;
+    border-radius: 16px; overflow: hidden; background: #000;
+    box-shadow: 0 8px 30px rgba(0,0,0,.15);
+  }
+  .mv-player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .mv-player .open-on-bili {
+    display: inline-block; margin-top: 12px; font-size: 13px; font-weight: 600;
+    color: #fff; background: var(--bili); border-radius: 999px; padding: 9px 20px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .mv-player .open-on-bili:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(251,114,153,.4); }
+
+  .back-top {
+    position: fixed; right: 26px; bottom: 26px; z-index: 50;
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--glass);
+    border: 1px solid var(--glass-border); box-shadow: var(--shadow);
+    color: var(--text); font-size: 17px; cursor: pointer;
+    display: grid; place-items: center;
+  }
+  .back-top:hover { transform: translateY(-2px); }
+
+  footer { padding: 30px 8vw; text-align: center; color: #86868b; font-size: 12px; line-height: 2; }
+
+  /* 标题字体：站酷黄油体（圆润卡通风，与日文圆体统一气质；黄油体自带厚重感，无需假粗体） */
+  h1, .page-head h1, .group-h .g-title {
+    font-family: "ZCOOL QingKe HuangYou", "Zen Maru Gothic", "M PLUS Rounded 1c", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-weight: 400;
+  }
+
+  /* ============ 移动端适配 ============ */
+  @media (max-width: 720px) {
+    /* 导航：logo 与链接分两行，链接横滑 */
+    nav { flex-direction: column; align-items: flex-start; gap: 10px; padding: 10px 5vw 12px; }
+    nav .logo { font-size: 15px; line-height: 1.2; }
+    nav .links { width: 100%; gap: 16px; font-size: 13px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    nav .links::-webkit-scrollbar { display: none; }
+    .page-head { padding: 46px 6vw 24px; }
+    .page-head p { font-size: 14px; }
+    .wrap { padding: 0 5vw 70px; }
+    .group-h { padding: 16px 16px; }
+    .group-h .g-title { font-size: 16px; }
+    .group-body { padding: 0 14px 16px; }
+    .mv-h { gap: 12px; padding: 12px 2px; }
+    .mv-h .cover { width: 118px; border-radius: 10px; }
+    .mv-h .cover .mask .play { width: 34px; height: 34px; }
+    .mv-h .cover .mask .play::after { border-left-width: 12px; border-top-width: 8px; border-bottom-width: 8px; }
+    .mv-info .t { font-size: 14.5px; }
+    .mv-info .t .ja { display: block; margin: 2px 0 0; }
+    .mv-info .meta { gap: 4px 10px; }
+    .mv-player .frame { border-radius: 12px; }
+    .back-top { right: 16px; bottom: 16px; width: 38px; height: 38px; }
+    footer { padding: 26px 6vw; font-size: 11px; }
+  }
+</style>
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+
+<div class="bg-blobs"></div>
+
+<nav>
+  <a class="logo" href="index.html">夢限大<b>Mew</b><i>Type</i></a>
+  <div class="links">
+    <a href="index.html">首页</a>
+    <a href="index.html#about">组合介绍</a>
+    <a href="index.html#chars">成员图鉴</a>
+    <a href="mv.html" class="active">MV合集</a>
+    <a href="fan.html">二创精选</a>
+    <a href="index.html#bilibili">官方链接</a>
+    <a href="#newbang" class="hot">新番动画</a>
+  </div>
+</nav>
+
+<div class="page-head">
+  <h1>MV <em>合集</em></h1>
+  <p>全部 25 支官方 MV / OP / ED · 附 KAYGEZ 搬运新番每日更新，点击任意一首在页面内播放。</p>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ 分组一：数字单曲 MV ============ -->
+  <div class="group" id="g1">
+    <div class="group-h" onclick="toggleGroup(this)">
+      <div class="arrow"></div>
+      <div class="g-title">数字单曲 <em>MV</em></div>
+      <div class="g-count">11 首</div>
+    </div>
+    <div class="group-body">
+
+      <div class="mv-item" id="mv-01">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/01_mugen_mo_sou.jpg" loading="lazy" alt="夢現妄想世界 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">梦现妄想世界<span class="ja">夢現妄想世界</span></div>
+            <div class="meta"><span>2023.11.20</span><span class="tag">1st Digital Single</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1aGYvetEHN"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1aGYvetEHN">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-02">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/02_big_mouth.jpg" loading="lazy" alt="BIG MOUTH 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">BIG MOUTH<span class="ja">ビッグマウス</span></div>
+            <div class="meta"><span>2024.02.23</span><span class="tag">2nd Digital Single</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1igeweCEZP"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1igeweCEZP">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-03">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/03_genkai.jpg" loading="lazy" alt="限界現実サバイブ天使 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">限界现实Survive天使<span class="ja">限界現実サバイブ天使</span></div>
+            <div class="meta"><span>2024.04.12</span><span class="tag">3rd Digital Single</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1dEe4e5EVm"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1dEe4e5EVm">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-04">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/04_empty_puppet.jpg" loading="lazy" alt="エンプティパペット 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">Empty Puppet<span class="ja">エンプティパペット</span></div>
+            <div class="meta"><span>2024.06.01</span><span class="tag">4th Digital Single</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1zVp1e3EPo"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1zVp1e3EPo">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-05">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/05_animal_party.jpg" loading="lazy" alt="✞animaるパーティ✞開催中✞ 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">✞动物派对✞正在举行✞<span class="ja">✞animaるパーティ✞開催中✞</span></div>
+            <div class="meta"><span>2024.08.03</span><span class="tag">《スタートライン》收录</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV18nWVegEYj"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV18nWVegEYj">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-06">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/06_kohaku.jpg" loading="lazy" alt="コハク 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">Kohaku<span class="ja">コハク</span></div>
+            <div class="meta"><span>2024.08.25</span><span class="tag">1st LIVE 初披露</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV12FWkejEJd"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV12FWkejEJd">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-07">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/07_shinjinrui.jpg" loading="lazy" alt="新人類は仮想世界の夢を見るか？ 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">新人类会梦见虚拟世界嘛？<span class="ja">新人類は仮想世界の夢を見るか？</span></div>
+            <div class="meta"><span>2024.10.28</span><span class="tag">1st Single 收录</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1dqkmY3EGa"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1dqkmY3EGa">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-08">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/08_komyu_chakka.jpg" loading="lazy" alt="コミュ着火Fire! 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">Commu点火Fire!<span class="ja">コミュ着火Fire!</span></div>
+            <div class="meta"><span>2024.12.24</span><span class="tag">1st Single 表题曲</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1u4kZYfEyL"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1u4kZYfEyL">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-09">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/09_trash_life.jpg" loading="lazy" alt="TRASH LIFE 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">TRASH LIFE<span class="ja">TRASH LIFE</span></div>
+            <div class="meta"><span>2025.02.07</span><span class="tag">2nd Single 收录</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1A89dYuEBV"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1A89dYuEBV">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-10">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/10_telepathy.jpg" loading="lazy" alt="テレパシー 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">心灵感应<span class="ja">テレパシー</span></div>
+            <div class="meta"><span>2025.04.17</span><span class="tag">2nd Single 收录</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1EA5azrELy"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1EA5azrELy">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-11">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/11_hi_vision.jpg" loading="lazy" alt="Hi-Vision 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">Hi-Vision<span class="ja">Hi-Vision</span></div>
+            <div class="meta"><span>2025.04.30</span><span class="tag">2nd Single 表题曲</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1nXLyzSEjU"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1nXLyzSEjU">在 B 站观看 ↗</a></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ 分组二：专辑/单曲 C/W MV ============ -->
+  <div class="group" id="g2">
+    <div class="group-h" onclick="toggleGroup(this)">
+      <div class="arrow"></div>
+      <div class="g-title">专辑 &amp; 单曲 <em>MV</em></div>
+      <div class="g-count">7 首</div>
+    </div>
+    <div class="group-body">
+
+      <div class="mv-item" id="mv-12">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/12_mayonaka.jpg" loading="lazy" alt="真夜中遊園地 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">午夜游乐园<span class="ja">真夜中遊園地</span></div>
+            <div class="meta"><span>2025.09.03</span><span class="tag">3rd Single 表题曲</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV12AaKz4EhW"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV12AaKz4EhW">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-13">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/13_gradient.jpg" loading="lazy" alt="グラディエント 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">Gradient<span class="ja">グラディエント</span></div>
+            <div class="meta"><span>2025.09.03</span><span class="tag">3rd Single 收录</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1o8agzsEa5"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1o8agzsEa5">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-14">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/14_achiachi.jpg" loading="lazy" alt="LET'Sあちあちトレーニング！ 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">LET'S热情Training！<span class="ja">LET'Sあちあちトレーニング！</span></div>
+            <div class="meta"><span>2025.09.03</span><span class="tag">3rd Single 收录</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1mUWVz8Esc"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1mUWVz8Esc">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-15">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/15_mewtant.jpg" loading="lazy" alt="みゅーたんとミュータント 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">MewTant与Mutant<span class="ja">みゅーたんとミュータント</span></div>
+            <div class="meta"><span>2025.12.24</span><span class="tag">1st Album 收录</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1LPRKBjEdB"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1LPRKBjEdB">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-16">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/16_tuning.jpg" loading="lazy" alt="チューニング 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">Tuning<span class="ja">チューニング</span></div>
+            <div class="meta"><span class="tag">1st Album 收录</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1ndYGzuEb7"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1ndYGzuEb7">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-17">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/17_chouwakusei.jpg" loading="lazy" alt="超惑星Xへの旅 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">前往超行星X之旅<span class="ja">超惑星Xへの旅</span></div>
+            <div class="meta"><span>2026.05.13</span><span class="tag">4th Single 表题曲</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1FbjV6UE2N"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1FbjV6UE2N">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-18">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/18_uchu.jpg" loading="lazy" alt="うちゅうのふしぎ 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">宇宙的不可思议<span class="ja">うちゅうのふしぎ</span></div>
+            <div class="meta"><span>2026</span><span class="tag">Digital Single</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV11CgF6uEEH"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV11CgF6uEEH">在 B 站观看 ↗</a></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ 分组三：TV 动画相关 MV ============ -->
+  <div class="group" id="g3">
+    <div class="group-h" onclick="toggleGroup(this)">
+      <div class="arrow"></div>
+      <div class="g-title">TV 动画 <em>OP / ED / 插入曲</em></div>
+      <div class="g-count">5 首</div>
+    </div>
+    <div class="group-body">
+
+      <div class="mv-item" id="mv-19">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/19_face_the_next.jpg" loading="lazy" alt="Face The Next 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">Face The Next<span class="ja">フェイス・ザ・ネクスト</span></div>
+            <div class="meta"><span class="tag">动画 #7 插入曲</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1FS3s6KEJD"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1FS3s6KEJD">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-20">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/20_tearjerker.jpg" loading="lazy" alt="TearJerker 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">TearJerker<span class="ja">ティアジャーカー</span></div>
+            <div class="meta"><span class="tag">动画 #7 插入歌</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1DRGw64E4x"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1DRGw64E4x">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-21">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/21_ichiban.jpg" loading="lazy" alt="一番のひかり 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">最耀眼的光芒<span class="ja">一番のひかり</span></div>
+            <div class="meta"><span class="tag">动画 #8 插入曲</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1AmMk6SEkw"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1AmMk6SEkw">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-22">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/22_op_eizou.jpg" loading="lazy" alt="OP影像 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">OP影像·这就是我们的生存梗概<span class="ja">これはぼくたちの生存のあらすじ</span></div>
+            <div class="meta"><span>2026.06.21</span><span class="tag">动画 OP 主题影像</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1mnjb6uEBh"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1mnjb6uEBh">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-23">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/23_op_live.jpg" loading="lazy" alt="OP LIVE影像 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">OP·这就是我们的生存梗概（LIVE影像）<span class="ja">これはぼくたちの生存のあらすじ</span></div>
+            <div class="meta"><span class="tag">动画 OP · LIVE 影像</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1fo8d6iEMN"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1fo8d6iEMN">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="mv-24">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="cover"><img src="images/mv/24_ed_yumemita.jpg" loading="lazy" alt="TV动画 ED影像 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">ED·TV动画 ED影像<span class="ja">バンドリ！ゆめ∞みた</span></div>
+            <div class="meta"><span>2026.07.02</span><span class="tag">动画 ED 主题影像</span></div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV19qTk6YEZ1"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV19qTk6YEZ1">在 B 站观看 ↗</a></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ 分组四：新番动画（KAYGEZ 每日更新，动态拉取） ============ -->
+  <div class="group" id="g-newbang">
+    <div class="group-h" onclick="toggleGroup(this)">
+      <div class="arrow"></div>
+      <div class="g-title">新番动画 <em>每日更新</em></div>
+      <div class="g-count" id="newbang-count">更新中…</div>
+    </div>
+    <div class="group-body" id="newbang-body">
+      <p style="padding:14px 0;font-size:13px;color:var(--text-2)" id="newbang-tip">正在加载 UP 主 KAYGEZ 的最新搬运…</p>
+    </div>
+  </div>
+
+</div>
+
+<button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">↑</button>
+
+<footer>
+  非官方粉丝应援页 · MV 版权归 © Bushiroad / Bushiroad Music 所有 · 经由 <a href="https://space.bilibili.com/3546592848120041" target="_blank" rel="noopener" style="color:var(--bili)">@梦限大MewType</a> 官方投稿
+</footer>
+
+<script>
+  // 分组折叠
+  function toggleGroup(h) {
+    h.parentElement.classList.toggle('open');
+  }
+  // ===== B 站嵌入播放器 =====
+  // 嵌入地址使用 aid + bvid + cid + page 的完整格式：
+  // 仅带 bvid 时播放器需二次跳转解析视频，在 file:// 本地环境或部分浏览器（无 Referer）下会被拒绝，导致黑屏。
+  const MV_DATA = {
+    "BV1aGYvetEHN": { aid: 112931165504000, cid: 500001643803136 },
+    "BV1igeweCEZP": { aid: 112948747962123, cid: 500001646776999 },
+    "BV1dEe4e5EVm": { aid: 112965122524115, cid: 500001650123934 },
+    "BV1zVp1e3EPo": { aid: 112987654391716, cid: 500001654579806 },
+    "BV18nWVegEYj": { aid: 113004213504079, cid: 31922916484 },
+    "BV12FWkejEJd": { aid: 113022366385635, cid: 500001661836809 },
+    "BV1dqkmY3EGa": { aid: 113684781207484, cid: 31929732996 },
+    "BV1u4kZYfEyL": { aid: 113708386750210, cid: 27512474789 },
+    "BV1A89dYuEBV": { aid: 114109110550536, cid: 28619769105 },
+    "BV1EA5azrELy": { aid: 114351323220146, cid: 29456531763 },
+    "BV1nXLyzSEjU": { aid: 114414355284020, cid: 29654715466 },
+    "BV12AaKz4EhW": { aid: 115135490295084, cid: 32111594044 },
+    "BV1o8agzsEa5": { aid: 115138946469819, cid: 32129025695 },
+    "BV1mUWVz8Esc": { aid: 115231204312218, cid: 32459589418 },
+    "BV1LPRKBjEdB": { aid: 116497296918374, cid: 38003543350 },
+    "BV1ndYGzuEb7": { aid: 115161562090074, cid: 32169592620 },
+    "BV1FbjV6UE2N": { aid: 116760179114292, cid: 39130825491 },
+    "BV11CgF6uEEH": { aid: 117091529133242, cid: 40892105636 },
+    "BV1FS3s6KEJD": { aid: 117007307507572, cid: 40432043454 },
+    "BV1DRGw64E4x": { aid: 117013951349978, cid: 40471039352 },
+    "BV1AmMk6SEkw": { aid: 117041650469347, cid: 40614494639 },
+    "BV1mnjb6uEBh": { aid: 116786670341755, cid: 39184043067 },
+    "BV1fo8d6iEMN": { aid: 117161490189722, cid: 41290501541 },
+    "BV19qTk6YEZ1": { aid: 116847907310999, cid: 39577256487 }
+  };
+  // 向指定容器注入 B 站官方嵌入播放器（懒加载）
+  function injectPlayer(frame) {
+    if (!frame || frame.dataset.loaded) return;
+    const bv = frame.dataset.bvid;
+    const info = MV_DATA[bv] || {};
+    const params = new URLSearchParams({
+      aid: info.aid || '',
+      bvid: bv,
+      cid: info.cid || '',
+      page: 1,
+      high_quality: 1,
+      danmaku: 0,
+      autoplay: 0
+    });
+    const ifr = document.createElement('iframe');
+    ifr.src = 'https://player.bilibili.com/player.html?' + params.toString();
+    ifr.allow = 'fullscreen; encrypted-media';
+    ifr.setAttribute('allowfullscreen', '');
+    ifr.scrolling = 'no';
+    ifr.referrerPolicy = 'no-referrer-when-downgrade';
+    frame.appendChild(ifr);
+    frame.dataset.loaded = '1';
+  }
+  // MV 展开：首次展开时才注入 iframe
+  function toggleMv(h) {
+    const item = h.parentElement;
+    if (!item.classList.contains('open')) {
+      injectPlayer(item.querySelector('.frame'));
+    }
+    item.classList.toggle('open');
+  }
+  // “在 B 站观看”链接补全地址
+  document.querySelectorAll('.open-on-bili').forEach(a => {
+    a.href = 'https://www.bilibili.com/video/' + a.dataset.bvid;
+  });
+  // 默认展开第一组
+  document.getElementById('g1').classList.add('open');
+  // ===== 新番动画：动态拉取 UP 主 KAYGEZ（mid 690151424）最新投稿，服务端缓存 1 小时 =====
+  (function () {
+    function esc(s) {
+      return String(s || '').replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+    function fmtDate(ts) {
+      var d = new Date(ts * 1000);
+      return d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0');
+    }
+    fetch('/api/newbang').then(function (r) { return r.json(); }).then(function (j) {
+      var list = j.list || [];
+      var body = document.getElementById('newbang-body');
+      var tip = document.getElementById('newbang-tip');
+      var count = document.getElementById('newbang-count');
+      if (!list.length) {
+        tip.textContent = j.error ? '加载失败，请稍后刷新重试。' : '暂无更新。';
+        count.textContent = '—';
+        return;
+      }
+      body.innerHTML = list.map(function (v, i) {
+        return '<div class="mv-item" id="nb-' + i + '">' +
+          '<div class="mv-h" onclick="toggleMv(this)">' +
+            '<div class="cover"><img src="' + esc(v.pic) + '" loading="lazy" alt="" referrerpolicy="no-referrer"><div class="mask"><div class="play"></div></div></div>' +
+            '<div class="mv-info">' +
+              '<div class="t">' + esc(v.title) + '</div>' +
+              '<div class="meta"><span>' + fmtDate(v.pub) + '</span><span>' + (v.length || '') + '</span><span>' + (v.play || 0) + ' 播放</span><span class="tag">UP：KAYGEZ</span></div>' +
+            '</div>' +
+            '<div class="expand"></div>' +
+          '</div>' +
+          '<div class="mv-player"><div class="frame" data-bvid="' + esc(v.bvid) + '"></div>' +
+            '<a class="open-on-bili" target="_blank" rel="noopener" href="https://www.bilibili.com/video/' + esc(v.bvid) + '">在 B 站观看 ↗</a></div>' +
+        '</div>';
+      }).join('');
+      // 注册播放器完整参数（服务端已代查 aid / cid）
+      list.forEach(function (v) {
+        MV_DATA[v.bvid] = { aid: v.aid || '', cid: v.cid || '' };
+      });
+      // “在 B 站观看”补全由下方统一逻辑处理（动态条目已内联 href）
+      count.textContent = list.length + ' 集';
+      tip.remove();
+    }).catch(function () {
+      var tip = document.getElementById('newbang-tip');
+      if (tip) tip.textContent = '加载失败（接口不可用），请稍后刷新重试。';
+      document.getElementById('newbang-count').textContent = '—';
+    });
+  })();
+  // URL hash 定位（来自首页轮播跳转 / 导航“新番动画”）
+  (function () {
+    const hash = decodeURIComponent(location.hash);
+    if (hash === '#newbang') {
+      const g = document.getElementById('g-newbang');
+      if (g) g.classList.add('open');
+      setTimeout(function () {
+        g && g.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+      return;
+    }
+    if (!/^#mv-\d+$/.test(hash)) return;
+    const target = document.querySelector('.mv-item' + hash);
+    if (!target) return;
+    const group = target.closest('.group');
+    if (group) group.classList.add('open');
+    injectPlayer(target.querySelector('.frame'));
+    target.classList.add('open');
+    setTimeout(function () {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+  })();
+</script>
+
+</body>
+</html>
