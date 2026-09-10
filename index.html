@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夢限大みゅーたいぷ | 梦限大 Mew Type</title>
+<!-- 中日统一在线字体：Zen Maru Gothic（日圆体优先）/ M PLUS Rounded 1c / Noto Sans SC（中文） -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Zen+Maru+Gothic:wght@500;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* 官方代表色 */
+    --pink: #FF7788;
+    --blue: #2288DD;
+    --text: #1d1d1f;
+    --text-2: #6e6e73;
+    --glass: rgba(255,255,255,.78);
+    --glass-border: rgba(255,255,255,.75);
+    --shadow: 0 8px 32px rgba(0,0,0,.08);
+    --bili: #fb7299;
+    --radius: 24px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    color: var(--text);
+    font-family: "Zen Maru Gothic", "M PLUS Rounded 1c", "Noto Sans SC",
+                 "PingFang SC", "Microsoft YaHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    background: #f5f5f7;
+    overflow-x: hidden;
+    letter-spacing: .01em;
+  }
+  a { color: inherit; text-decoration: none; }
+  /* 细节与可访问性 */
+  ::selection { background: rgba(255,119,136,.3); }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: #d9d9de; border-radius: 999px; border: 2px solid #f5f5f7; }
+  ::-webkit-scrollbar-thumb:hover { background: #ff99a6; }
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--pink); outline-offset: 2px;
+  }
+  [id] { scroll-margin-top: 90px; } /* 锚点定位避开固定导航 */
+  /* 标题统一加粗（正文 400/500，标题 700+ 区分） */
+  h1, h2, h3, h4, .sec-title, .nav a, .switch-tag { font-weight: 700; }
+  h1, h2, h3, .sec-title { font-weight: 800; }
+
+  /* 背景光斑 */
+  .bg-blobs { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+  .bg-blobs::before, .bg-blobs::after {
+    content: ""; position: absolute; border-radius: 50%; filter: blur(90px); opacity: .5;
+  }
+  .bg-blobs::before { width: 55vw; height: 55vw; top: -20vw; right: -12vw;
+    background: radial-gradient(circle, rgba(255,119,136,.4), transparent 70%); }
+  .bg-blobs::after { width: 50vw; height: 50vw; bottom: -18vw; left: -12vw;
+    background: radial-gradient(circle, rgba(34,136,221,.35), transparent 70%); }
+
+  /* ============ 导航（玻璃条） ============ */
+  nav {
+    position: fixed; inset: 0 0 auto 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 5vw;
+    background: rgba(255,255,255,.55); backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: .5px solid rgba(0,0,0,.08);
+  }
+  .logo { font-weight: 700; font-size: 17px; letter-spacing: .02em; }
+  .logo b { color: var(--pink); }
+  .logo i { font-style: normal; color: var(--blue); }
+  nav .links { display: flex; gap: 28px; font-size: 14px; color: var(--text-2); white-space: nowrap; }
+  nav .links a:hover { color: var(--text); }
+
+  /* ============ Hero ============ */
+  .hero {
+    position: relative; min-height: 92vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 130px 8vw 70px; overflow: hidden;
+  }
+  .hero-kv {
+    position: absolute; inset: 0;
+    background-image: url("images/hero-kv.jpg");
+    background-size: cover; background-position: center 20%;
+  }
+  .hero-kv::after {
+    content: ""; position: absolute; inset: 0;
+    /* 左侧留白保证文字可读，右侧透出完整主视觉 */
+    background: linear-gradient(90deg,
+      rgba(245,245,247,.94) 0%, rgba(245,245,247,.82) 38%,
+      rgba(245,245,247,.35) 68%, rgba(245,245,247,0) 100%);
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 720px; }
+  h1 { font-size: clamp(44px, 7.5vw, 96px); font-weight: 800; line-height: 1.06; letter-spacing: -.02em; }
+  h1 .ja { display: block; font-family: "Zen Maru Gothic", "M PLUS Rounded 1c", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: clamp(15px, 2vw, 20px); font-weight: 600; color: var(--text-2); letter-spacing: 3px; margin-bottom: 14px; }
+  h1 .hl {
+    background: linear-gradient(90deg, #FF7788, #2288DD);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+
+  /* ============ 通用 ============ */
+  section { padding: 90px 8vw; position: relative; }
+  .sec-title { font-size: clamp(28px, 3.6vw, 40px); font-weight: 800; letter-spacing: -.01em; margin-bottom: 8px; }
+  .sec-title em { font-style: normal;
+    background: linear-gradient(90deg, #FF7788, #2288DD);
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sec-desc { color: var(--text-2); margin-bottom: 44px; font-size: 16px; }
+  .glass {
+    background: var(--glass);
+    border: 1px solid var(--glass-border); border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  /* 折叠长文（details 苹果风） */
+  details.fold { margin-top: 18px; }
+  details.fold summary {
+    list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+    color: var(--blue); font-size: 14px; font-weight: 600; user-select: none;
+  }
+  details.fold summary::-webkit-details-marker { display: none; }
+  details.fold summary::after { content: "›"; transition: transform .25s; font-size: 16px; }
+  details.fold[open] summary::after { transform: rotate(90deg); }
+  details.fold .fold-body { margin-top: 12px; color: var(--text-2); font-size: 14px; line-height: 1.9; }
+
+  /* ============ 关于 ============ */
+  .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .stat {
+    display: flex; align-items: center; gap: 14px;
+    padding: 18px 20px;
+  }
+  .stat .num {
+    font-size: 26px; font-weight: 800; line-height: 1; letter-spacing: 0;
+  }
+  .stat .num.c-pink { color: var(--pink); }
+  .stat .num.c-blue { color: var(--blue); }
+  .stat .num.c-mix {
+    background: linear-gradient(90deg, #FF7788, #2288DD);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .stat .lab { color: var(--text-2); font-size: 12.5px; line-height: 1.5; }
+
+  /* ============ 成员 ============ */
+  .chars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 18px; }
+  .char-card {
+    overflow: hidden; transition: transform .35s, box-shadow .35s;
+    background: var(--glass);
+    border: 1px solid var(--glass-border); border-radius: var(--radius); box-shadow: var(--shadow);
+  }
+  .char-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,.12); }
+  .char-art {
+    position: relative; aspect-ratio: 3/4; display: grid; place-items: end center; overflow: hidden;
+    cursor: pointer;
+  }
+  .char-art img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  /* 点击切换私服/官方服装的角标 */
+  .char-art .switch-tag {
+    position: absolute; bottom: 10px; left: 10px; z-index: 2;
+    padding: 4px 12px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; color: #fff;
+    background: rgba(0,0,0,.45); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    pointer-events: none; transition: background .2s;
+  }
+  .char-art:hover .switch-tag { background: rgba(255,119,136,.85); }
+  .char-art img.swap { animation: swapIn .35s ease; }
+  @keyframes swapIn { from { opacity: 0; transform: scale(1.03); } to { opacity: 1; transform: scale(1); } }
+  .char-art::after {
+    content: attr(data-kana); position: absolute; top: 12px; right: 14px;
+    writing-mode: vertical-rl; font-size: 11px; letter-spacing: 4px; color: rgba(255,255,255,.8);
+    text-shadow: 0 1px 4px rgba(0,0,0,.4);
+  }
+  .char-bar { height: 4px; width: 100%; }
+  .bar-vo { background: linear-gradient(90deg,#FFEE55,#fff3a0); }
+  .bar-gt1{ background: linear-gradient(90deg,#FF9DBF,#ffd3e4); }
+  .bar-gt2{ background: linear-gradient(90deg,#4477CC,#8fb2ec); }
+  .bar-key{ background: linear-gradient(90deg,#9977CC,#c3a8e8); }
+  .bar-dj { background: linear-gradient(90deg,#EE5577,#1a1a1a); }
+  .char-body { padding: 20px 20px 24px; }
+  .char-name { font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 8px; letter-spacing: 0; }
+  .char-emoji { font-size: 22px; }
+  .char-role { font-size: 12.5px; color: var(--text-2); margin: 6px 0 12px; }
+  /* 简介默认 2 行截断，点击展开 */
+  .char-desc {
+    font-size: 13.5px; color: var(--text-2); line-height: 1.75; cursor: pointer;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    transition: color .2s;
+  }
+  .char-desc:hover { color: var(--text); }
+  .char-desc.expand { display: block; -webkit-line-clamp: unset; }
+  .char-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .char-tags span {
+    font-size: 11px; padding: 4px 12px; border-radius: 999px;
+    background: rgba(255,255,255,.6); color: var(--text-2);
+  }
+  .char-card:hover .char-art img { transform: scale(1.04); }
+  .char-art img { transition: transform .4s; }
+
+  /* ============ MV 滚动轮播 ============ */
+  .mv-marquee {
+    padding: 90px 0 70px; overflow: hidden; position: relative;
+  }
+  .mv-marquee .sec-title, .mv-marquee .sec-desc { padding: 0 8vw; }
+  .mv-marquee .sec-desc { margin-bottom: 36px; }
+  .mv-row { overflow: hidden; white-space: nowrap; padding: 10px 0; }
+  .mv-row + .mv-row { margin-top: 8px; }
+  .mv-track { display: inline-flex; gap: 18px; padding-right: 18px; animation: mvScroll 60s linear infinite; will-change: transform; }
+  .mv-row.rev .mv-track { animation-direction: reverse; animation-duration: 72s; }
+  .mv-marquee:hover .mv-track { animation-play-state: paused; }
+  @keyframes mvScroll { to { transform: translateX(-50%); } }
+  .mv-tile {
+    position: relative; width: 232px; flex-shrink: 0; border-radius: 18px; overflow: hidden;
+    background: var(--glass);
+    border: 1px solid var(--glass-border); box-shadow: var(--shadow);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .mv-tile:hover { transform: scale(1.04); box-shadow: 0 14px 44px rgba(0,0,0,.14); z-index: 2; }
+  .mv-tile .cover { position: relative; aspect-ratio: 16/10; background: #000; overflow: hidden; }
+  .mv-tile .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mv-tile .cover .mask {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    background: rgba(0,0,0,.3); opacity: 0; transition: opacity .25s;
+  }
+  .mv-tile:hover .cover .mask { opacity: 1; }
+  .mv-tile .cover .mask::after {
+    content: ""; width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(251,114,153,.95); margin-left: 4px;
+    box-shadow: 14px 0 0 -3px rgba(251,114,153,.95);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, 46% 50%);
+  }
+  .mv-tile .cap { padding: 12px 14px; white-space: normal; }
+  .mv-tile .cap .t { font-size: 13.5px; font-weight: 600; line-height: 1.4; display: block; overflow: hidden; text-overflow: ellipsis; }
+  .mv-tile .cap .d { font-size: 11px; color: var(--text-2); margin-top: 3px; display: block; }
+  .mv-more { text-align: center; margin-top: 36px; }
+  .mv-more a {
+    display: inline-block; padding: 13px 32px; font-size: 14px; font-weight: 600;
+    border-radius: 999px; transition: all .25s;
+    background: var(--glass);
+    border: 1px solid var(--glass-border); box-shadow: var(--shadow);
+  }
+  .mv-more a:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,.12); }
+
+  /* ============ 歌曲滚动条 ============ */
+  .quote-marquee {
+    overflow: hidden; white-space: nowrap; padding: 18px 0;
+  }
+  .quote-track { display: inline-block; animation: marquee 30s linear infinite; }
+  .quote-track span { font-size: 20px; font-weight: 700; letter-spacing: 3px; margin: 0 32px; color: rgba(0,0,0,.12); }
+  .quote-track span:nth-child(even) { color: var(--pink); opacity: .55; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+
+  /* ============ 链接区 ============ */
+  .links-sec { text-align: center; }
+  .links-sec .sec-desc { margin-left: auto; margin-right: auto; }
+  .link-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; max-width: 980px; margin: 0 auto; }
+  .link-card {
+    display: block; padding: 30px 28px; border-radius: var(--radius);
+    background: var(--glass);
+    border: 1px solid var(--glass-border); box-shadow: var(--shadow);
+    transition: transform .25s, box-shadow .25s;
+  }
+  .link-card:hover { transform: translateY(-5px); box-shadow: 0 14px 44px rgba(0,0,0,.13); }
+  .lk-title { font-size: 17px; font-weight: 700; color: var(--bili); margin-bottom: 8px; }
+  .lk-desc { font-size: 13px; color: var(--text-2); line-height: 1.75;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .lk-url { font-size: 12px; color: #86868b; margin-top: 12px; word-break: break-all; }
+
+  /* ============ Bangumi 吐槽（默认展开） ============ */
+  .bgm-box {
+    max-width: 1100px; margin-top: 30px; border-radius: var(--radius); overflow: hidden;
+    background: var(--glass);
+    border: 1px solid var(--glass-border); box-shadow: var(--shadow);
+  }
+  .bgm-head {
+    display: flex; align-items: center; gap: 14px; padding: 18px 24px; cursor: pointer; user-select: none;
+    transition: background .2s;
+  }
+  .bgm-head:hover { background: rgba(255,255,255,.35); }
+  .bgm-head .arrow {
+    width: 0; height: 0; border-left: 7px solid var(--text-2);
+    border-top: 5px solid transparent; border-bottom: 5px solid transparent;
+    transition: transform .25s; flex-shrink: 0;
+  }
+  .bgm-box.open .bgm-head .arrow { transform: rotate(90deg); }
+  .bgm-head .h-t { font-size: 16px; font-weight: 700; flex: 1; }
+  .bgm-head .h-t em { font-style: normal; color: var(--pink); }
+  .bgm-head .h-d { font-size: 12px; color: var(--text-2); }
+  .bgm-body { display: none; padding: 4px 24px 20px; }
+  .bgm-box.open .bgm-body { display: block; }
+  .bgm-cm { display: flex; gap: 14px; padding: 14px 0; border-top: .5px solid rgba(0,0,0,.07); }
+  .bgm-cm:first-child { border-top: none; }
+  .bgm-cm img {
+    width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0; object-fit: cover;
+    background: #eee; margin-top: 2px;
+  }
+  .bgm-cm .cm-main { flex: 1; min-width: 0; }
+  .bgm-cm .cm-meta { font-size: 12px; color: var(--text-2); display: flex; flex-wrap: wrap; gap: 4px 10px; }
+  .bgm-cm .cm-meta b { color: var(--text); }
+  .bgm-cm .cm-meta .stars { color: #f5a623; letter-spacing: 1px; }
+  .bgm-cm .cm-text {
+    font-size: 13.5px; line-height: 1.7; margin-top: 4px; color: var(--text);
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .bgm-foot { text-align: center; padding: 6px 0 10px; }
+  .bgm-foot a { font-size: 12px; color: var(--blue); }
+  .bgm-foot a:hover { text-decoration: underline; }
+
+  /* ============ 二创精选（前二） ============ */
+  .fan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; max-width: 860px; margin-top: 30px; }
+  .fan-card {
+    display: block; border-radius: var(--radius); overflow: hidden;
+    background: var(--glass);
+    border: 1px solid var(--glass-border); box-shadow: var(--shadow);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .fan-card:hover { transform: translateY(-6px); box-shadow: 0 14px 44px rgba(0,0,0,.14); }
+  .fan-card .cover { position: relative; aspect-ratio: 16/9; background: #000; overflow: hidden; }
+  .fan-card .cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+  .fan-card:hover .cover img { transform: scale(1.05); }
+  .fan-card .cover .rk {
+    position: absolute; top: 12px; left: 12px; padding: 3px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 800; color: #fff;
+    background: linear-gradient(90deg, #FF7788, #2288DD);
+  }
+  .fan-card .cap { padding: 14px 18px 18px; }
+  .fan-card .cap .t { font-size: 15px; font-weight: 700; line-height: 1.5; }
+  .fan-card .cap .m { font-size: 12px; color: var(--text-2); margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px 12px; }
+  .fan-card .cap .m .hot { color: var(--pink); }
+  .fan-card .cap .u { font-size: 11.5px; color: #86868b; margin-top: 6px; }
+  .fan-note { font-size: 12px; color: var(--text-2); margin-top: 18px; }
+
+  /* ============ 留言板 ============ */
+  .gb-box {
+    max-width: 1100px; margin-top: 30px; border-radius: var(--radius);
+    background: var(--glass);
+    border: 1px solid var(--glass-border); box-shadow: var(--shadow);
+    padding: 26px;
+  }
+  .gb-fields { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; align-items: center; }
+  .gb-anon {
+    display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+    font-size: 13px; color: var(--text-2); user-select: none;
+    background: rgba(255,255,255,.6); border-radius: 999px; padding: 8px 16px;
+  }
+  .gb-anon input { accent-color: var(--pink); width: 15px; height: 15px; }
+  .gb-input {
+    border: 1px solid rgba(0,0,0,.1); border-radius: 14px;
+    background: rgba(255,255,255,.75); padding: 10px 16px;
+    font-size: 14px; color: var(--text); outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    font-family: inherit;
+  }
+  .gb-input:focus { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(255,119,136,.15); }
+  .gb-input:disabled { opacity: .45; }
+  .gb-input::placeholder { color: #9a9aa0; }
+  #gb-name { width: 140px; }
+  #gb-mail { flex: 1; min-width: 200px; }
+  .gb-area { width: 100%; min-height: 90px; resize: vertical; line-height: 1.7; }
+  .gb-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+  .gb-count { font-size: 12px; color: #86868b; }
+  .gb-send {
+    border: 0; border-radius: 999px; padding: 10px 26px; cursor: pointer;
+    font-size: 14px; font-weight: 600; color: #fff;
+    background: linear-gradient(90deg, #FF7788, #2288DD);
+    transition: transform .2s, box-shadow .2s;
+    font-family: inherit;
+  }
+  .gb-send:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,119,136,.4); }
+  .gb-list { margin-top: 22px; }
+  .gb-empty { text-align: center; color: #86868b; font-size: 13px; padding: 18px 0; }
+  .gb-cm { display: flex; gap: 12px; padding: 14px 0; border-top: .5px solid rgba(0,0,0,.07); }
+  .gb-ava {
+    width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+    display: grid; place-items: center; font-size: 15px; font-weight: 700; color: #fff;
+    background: linear-gradient(135deg, #FF9E5E, #FF7788);
+  }
+  .gb-main { flex: 1; min-width: 0; }
+  .gb-meta { font-size: 12px; color: var(--text-2); display: flex; gap: 10px; }
+  .gb-meta b { color: var(--text); }
+  .gb-text { font-size: 14px; line-height: 1.7; margin-top: 4px; word-break: break-word; }
+
+  footer {
+    padding: 34px 8vw; text-align: center; color: #86868b; font-size: 12px; line-height: 2;
+  }
+
+  /* 标题字体：站酷黄油体（圆润卡通风，与日文圆体统一气质；黄油体自带厚重感，无需假粗体） */
+  h1, h2, h3, h4, .sec-title, .char-name {
+    font-family: "ZCOOL QingKe HuangYou", "Zen Maru Gothic", "M PLUS Rounded 1c", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-weight: 400;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mv-track, .quote-track { animation: none; }
+  }
+
+  /* ============ 移动端适配 ============ */
+  @media (max-width: 720px) {
+    /* 导航：logo 与链接分两行，链接横滑 */
+    nav { flex-direction: column; align-items: flex-start; gap: 10px; padding: 10px 5vw 12px; }
+    nav .logo { font-size: 15px; line-height: 1.2; }
+    nav .links { width: 100%; gap: 16px; font-size: 13px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    nav .links::-webkit-scrollbar { display: none; }
+    .hero { padding: 110px 6vw 60px; min-height: 86vh; }
+    /* 手机：文字占满整宽，改用上下渐变保证可读 */
+    .hero-kv::after { background: linear-gradient(180deg,
+      rgba(245,245,247,.82), rgba(245,245,247,.6) 45%, rgba(245,245,247,.88)); }
+    h1 { font-size: clamp(38px, 11vw, 56px); }
+    h1 .ja { font-size: 14px; letter-spacing: 2px; }
+    section { padding: 60px 6vw; }
+    .sec-title { font-size: 26px; }
+    /* Bangumi 吐槽 / 二创精选（移动端） */
+    .bgm-head { padding: 14px 16px; }
+    .bgm-head .h-t { font-size: 14.5px; }
+    .bgm-head .h-d { display: none; }
+    .bgm-body { padding: 2px 14px 14px; }
+    .bgm-cm { gap: 10px; padding: 12px 0; }
+    .bgm-cm img { width: 30px; height: 30px; }
+    .bgm-cm .cm-meta { font-size: 11.5px; }
+    .bgm-cm .cm-text { font-size: 12.5px; -webkit-line-clamp: 2; }
+    .fan-cards { grid-template-columns: 1fr; gap: 14px; margin-top: 22px; }
+    .fan-card .cap .t { font-size: 14px; }
+    /* 留言板（移动端） */
+    .gb-box { padding: 16px; }
+    .gb-anon { padding: 7px 13px; font-size: 12px; }
+    #gb-name { width: 100%; }
+    #gb-mail { min-width: 100%; }
+    .gb-actions { flex-wrap: wrap; gap: 8px; }
+    .gb-send { width: 100%; }
+    .sec-desc { font-size: 14px; margin-bottom: 30px; }
+    .chars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .char-body { padding: 14px 14px 18px; }
+    .char-name { font-size: 16px; }
+    .char-desc { font-size: 12px; }
+    .about-grid { grid-template-columns: 1fr; gap: 10px; }
+    .stat { padding: 14px 16px; gap: 12px; }
+    .stat .num { font-size: 22px; }
+    .stat .lab { font-size: 11.5px; }
+    .mv-marquee .sec-title, .mv-marquee .sec-desc { padding: 0 6vw; }
+    .mv-tile { width: 168px; border-radius: 14px; }
+    .mv-tile .cap .t { font-size: 12.5px; }
+    .quote-track span { font-size: 16px; margin: 0 20px; }
+    .link-card { padding: 24px 20px; }
+    .lk-title { font-size: 16px; }
+    footer { padding: 26px 6vw; font-size: 11px; }
+    @media (max-width: 430px) { .chars-grid { grid-template-columns: 1fr; } }
+  }
+</style>
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body id="top">
+
+<div class="bg-blobs"></div>
+
+<nav>
+  <a class="logo" href="#top">夢限大<b>Mew</b><i>Type</i></a>
+  <div class="links">
+    <a href="#about">组合介绍</a>
+    <a href="#chars">成员图鉴</a>
+    <a href="mv.html">MV合集</a>
+    <a href="fan.html">二创精选</a>
+    <a href="#bilibili">相关链接</a>
+  </div>
+</nav>
+
+<!-- ============ Hero ============ -->
+<header class="hero">
+  <div class="hero-kv"></div>
+  <div class="hero-content">
+    <h1>
+      <span class="ja">夢と現実を飛び越える運命共同体</span>
+      梦想，<span class="hl">无限大</span>。
+    </h1>
+  </div>
+</header>
+
+<!-- ============ 关于 ============ -->
+<section class="about" id="about">
+  <div class="sec-title">关于 <em>Mew Type</em></div>
+  <p class="sec-desc">2023 年结成的虚拟乐队，TV 动画「YUME∞MITA」热播中。</p>
+  <div class="about-grid">
+    <div class="stat glass"><div class="num c-pink">2023</div><div class="lab">年 11 月 9 日<br>结成出道</div></div>
+    <div class="stat glass"><div class="num c-blue">5</div><div class="lab">名兽耳少女<br>成员</div></div>
+    <div class="stat glass"><div class="num c-mix">∞</div><div class="lab">梦想的<br>可能性</div></div>
+  </div>
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin-top:18px">
+    <a class="link-card" href="https://bgm.tv/subject/583729" target="_blank" rel="noopener">
+      <div class="lk-title">📊 Bangumi · 评分情况</div>
+      <div class="lk-desc">TV 动画 5.5 分 / 2429 人评价（评分两极，电波系日常与剧情逻辑之争）。</div>
+      <div class="lk-url">bgm.tv/subject/583729</div>
+    </a>
+    <a class="link-card" href="https://anime.bang-dream.com/yumemita/" target="_blank" rel="noopener">
+      <div class="lk-title">🎬 TV 动画官方网站</div>
+      <div class="lk-desc">最新话情报、STAFF / CAST、角色设定与 Blu-ray 信息。</div>
+      <div class="lk-url">anime.bang-dream.com/yumemita</div>
+    </a>
+  </div>
+  <details class="fold">
+    <summary>更多介绍</summary>
+    <div class="fold-body">
+      「夢限大みゅーたいぷ」是《BanG Dream!》企划于 2023 年 11 月推出的第一支虚拟主播乐队，乐队代表色为 #FF7788 与 #2288DD。五位成员的角色形象均由信澤收设计，以东京文京区地名为姓氏，并各自佩戴标志性的兽耳头饰。2026 年 7 月起，TV 动画「BanG Dream! YUME∞MITA（ゆめ∞みた）」正式播出，B 站每周四 22:00 同步放送。
+    </div>
+  </details>
+</section>
+
+<!-- ============ 成员图鉴 ============ -->
+<section id="chars">
+  <div class="sec-title">成员 <em>图鉴</em></div>
+  <p class="sec-desc">五只小动物，各自戴着属于自己的耳朵。</p>
+  <div class="chars-grid">
+
+    <div class="char-card">
+      <div class="char-bar bar-vo"></div>
+      <div class="char-art" data-kana="なかまち・あられ" onclick="toggleOutfit(this)">
+        <img src="images/nakamachi-arale.webp" data-casual="images/arale-casual.webp" alt="仲町阿拉蕾 官方立绘" loading="lazy">
+        <span class="switch-tag">私服 ⇄ 舞台装</span>
+      </div>
+      <div class="char-body">
+        <div class="char-name"><span class="char-emoji">🦊</span>仲町阿拉蕾</div>
+        <div class="char-role">Vo. · 耳廓狐 · #FFEE55</div>
+        <div class="char-desc" onclick="this.classList.toggle('expand')">黄色双马尾的耳廓狐少女，性格外向、内心却胆小敏感。爱看动画漫画游戏，被夸就开心得不行。</div>
+        <div class="char-tags"><span>#外向</span><span>#内心敏感</span></div>
+      </div>
+    </div>
+
+    <div class="char-card">
+      <div class="char-bar bar-gt1"></div>
+      <div class="char-art" data-kana="みやなが・のにか" onclick="toggleOutfit(this)">
+        <img src="images/miyanaga-nonoka.webp" data-casual="images/nonoka-casual.webp" alt="宫永野乃花 官方立绘" loading="lazy">
+        <span class="switch-tag">私服 ⇄ 舞台装</span>
+      </div>
+      <div class="char-body">
+        <div class="char-name"><span class="char-emoji">🐇</span>宫永野乃花</div>
+        <div class="char-role">Gt. · 兔子 · 粉色</div>
+        <div class="char-desc" onclick="this.classList.toggle('expand')">粉色的元气兔！跳脱元气、特技是反复横跳，无论何时都能笑着冲上前。</div>
+        <div class="char-tags"><span>#元气</span><span>#跳脱</span></div>
+      </div>
+    </div>
+
+    <div class="char-card">
+      <div class="char-bar bar-gt2"></div>
+      <div class="char-art" data-kana="みねつき・りつ" onclick="toggleOutfit(this)">
+        <img src="images/minetsuki-ritsu.webp" data-casual="images/ritsu-casual.webp" alt="峰月律 官方立绘" loading="lazy">
+        <span class="switch-tag">私服 ⇄ 舞台装</span>
+      </div>
+      <div class="char-body">
+        <div class="char-name"><span class="char-emoji">🐻</span>峰月律</div>
+        <div class="char-role">Gt. · 熊 · #4477CC</div>
+        <div class="char-desc" onclick="this.classList.toggle('expand')">蓝色的小熊，认真而强势的优等生。爱观鸟、登山、做广播体操。</div>
+        <div class="char-tags"><span>#认真</span><span>#强势</span></div>
+      </div>
+    </div>
+
+    <div class="char-card">
+      <div class="char-bar bar-key"></div>
+      <div class="char-art" data-kana="とう・みやこ" onclick="toggleOutfit(this)">
+        <img src="images/fuji-miyako.webp" data-casual="images/miyako-casual.webp" alt="藤都子 官方立绘" loading="lazy">
+        <span class="switch-tag">私服 ⇄ 舞台装</span>
+      </div>
+      <div class="char-body">
+        <div class="char-name"><span class="char-emoji">🐕</span>藤都子</div>
+        <div class="char-role">Key. · 小狗 · #9977CC</div>
+        <div class="char-desc" onclick="this.classList.toggle('expand')">紫深色的小狗，内向而温顺，随身带着戏偶「丸君」。</div>
+        <div class="char-tags"><span>#内向</span><span>#温顺</span></div>
+      </div>
+    </div>
+
+    <div class="char-card">
+      <div class="char-bar bar-dj"></div>
+      <div class="char-art" data-kana="せんごく・ゆの" onclick="toggleOutfit(this)">
+        <img src="images/sengoku-yuno.webp" data-casual="images/yuno-casual.webp" alt="千石由乃 官方立绘" loading="lazy">
+        <span class="switch-tag">私服 ⇄ 舞台装</span>
+      </div>
+      <div class="char-body">
+        <div class="char-name"><span class="char-emoji">🦦</span>千石由乃</div>
+        <div class="char-role">DJ &amp; Mp. · 雪貂 · #EE5577</div>
+        <div class="char-desc" onclick="this.classList.toggle('expand')">红黑配色的雪貂少女，冷感宅系，爱游戏、TCG 和能量饮料。</div>
+        <div class="char-tags"><span>#冷感</span><span>#宅系</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ Bangumi 实时吐槽 ============ -->
+<section id="bgm">
+  <div class="sec-title">Bangumi <em>吐槽</em></div>
+  <p class="sec-desc">来自 bgm.tv 条目页的最新短评，每 2 小时自动刷新。</p>
+  <div class="bgm-box open" id="bgm-box">
+    <div class="bgm-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="arrow"></div>
+      <div class="h-t">最新吐槽 <em id="bgm-count">5</em> 条</div>
+      <div class="h-d" id="bgm-time">正在获取最新吐槽…</div>
+    </div>
+    <div class="bgm-body" id="bgm-body">
+      <div class="bgm-cm">
+        <img src="https://lain.bgm.tv/pic/user/l/000/75/69/756945.jpg" loading="lazy" alt="">
+        <div class="cm-main">
+          <div class="cm-meta"><b>香草飞鸟凑</b><span class="stars">★★★★</span><span>在看</span><span>27 分钟前</span></div>
+          <div class="cm-text">后藤绿看红果短剧把脑子看坏了吗？？</div>
+        </div>
+      </div>
+      <div class="bgm-cm">
+        <img src="https://lain.bgm.tv/pic/user/l/000/94/70/947087.jpg" loading="lazy" alt="">
+        <div class="cm-main">
+          <div class="cm-meta"><b>Clqlsx</b><span class="stars">★★★★★</span><span>在看</span><span>2 小时前</span></div>
+          <div class="cm-text">oped好听。当你真心喜欢一部作品时，肯定希望她能圆满结束，而不是还剩很多东西没讲时不剩几集了……还是有弹幕好看，能不能最后几集全发在官号上啊</div>
+        </div>
+      </div>
+      <div class="bgm-cm">
+        <img src="https://lain.bgm.tv/pic/user/l/000/89/40/894092_OqqW3.jpg" loading="lazy" alt="">
+        <div class="cm-main">
+          <div class="cm-meta"><b>meltriston</b><span class="stars">★★★★</span><span>在看</span><span>4 小时前</span></div>
+          <div class="cm-text">日常浪费了大量时间写没意义的木柜子痴最爱的二次元劳斯啊啊啊啊，让两个吵得要死的一直喊，太好磕了太有活力了……玩具最后散架了，也比粪坑强。</div>
+        </div>
+      </div>
+      <div class="bgm-cm">
+        <img src="https://lain.bgm.tv/pic/user/l/000/97/30/973040_QL6p9.jpg" loading="lazy" alt="">
+        <div class="cm-main">
+          <div class="cm-meta"><b>鶴見留美</b><span>在看</span><span>4 小时前</span></div>
+          <div class="cm-text">我超威你们能不能别胡闹了，ep10 单看这一话问题还好……都快一半了请问其他人的塑造在哪儿</div>
+        </div>
+      </div>
+      <div class="bgm-cm">
+        <img src="https://lain.bgm.tv/pic/user/l/000/75/06/750667.jpg" loading="lazy" alt="">
+        <div class="cm-main">
+          <div class="cm-meta"><b>悦梦</b><span class="stars">★★★★</span><span>在看</span><span>7 小时前</span></div>
+          <div class="cm-text">所以为什么女主不换皮套……？//好闹麻啊</div>
+        </div>
+      </div>
+      <div class="bgm-foot"><a href="https://bgm.tv/subject/583729/comments" target="_blank" rel="noopener">在 bgm.tv 查看全部吐槽 ↗</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ B 站二创精选 ============ -->
+<section id="fan">
+  <div class="sec-title">二创 <em>精选</em></div>
+  <p class="sec-desc">按硬币数与点赞率排名的 B 站人气二创，每 2 小时自动更新。</p>
+  <div class="fan-cards">
+    <a class="fan-card" href="fan.html#fan-01">
+      <div class="cover"><img src="images/fan/a01.jpg" loading="lazy" alt="薇藤MAD 绿色 封面"><span class="rk">No.1 · MAD</span></div>
+      <div class="cap">
+        <div class="t">薇藤 MAD「绿色」（第11话重置版）</div>
+        <div class="m"><span class="hot">🪙 2746</span><span>👍 7888</span><span>▶ 4.6万</span><span>赞率 17.1%</span></div>
+        <div class="u">UP：zhylj · 2026.08.29</div>
+      </div>
+    </a>
+    <a class="fan-card" href="fan.html#fan-11">
+      <div class="cover"><img src="images/fan/p01.jpg" loading="lazy" alt="宇宙的不可思议男生翻唱 封面"><span class="rk">No.1 · 翻唱</span></div>
+      <div class="cap">
+        <div class="t">ED「宇宙的不可思议」男生翻唱</div>
+        <div class="m"><span class="hot">🪙 90</span><span>👍 1759</span><span>▶ 3947</span><span>赞率 44.6%</span></div>
+        <div class="u">UP：今歌奏井 · 2026.08.29</div>
+      </div>
+    </a>
+  </div>
+  <p class="fan-note">想看全部 20 部 MMD / MAD / 翻唱 / COS 二创与往期精选？<a href="fan.html" style="color:var(--blue)">进入二创精选页 ›</a></p>
+</section>
+
+<!-- ============ MV 滚动轮播 ============ -->
+<section class="mv-marquee" id="mvshow">
+  <div class="sec-title">MV <em>轮播</em></div>
+  <p class="sec-desc">官方 MV 循环展示，点击任意 MV 前往播放页。</p>
+
+  <div class="mv-row">
+    <div class="mv-track">
+      <a class="mv-tile" href="mv.html#mv-01"><div class="cover"><img src="images/mv/01_mugen_mo_sou.jpg" alt="夢現妄想世界" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">梦现妄想世界</span><span class="d">2023.11.20</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-02"><div class="cover"><img src="images/mv/02_big_mouth.jpg" alt="BIG MOUTH" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">BIG MOUTH</span><span class="d">2024.02.23</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-03"><div class="cover"><img src="images/mv/03_genkai.jpg" alt="限界現実サバイブ天使" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">限界现实Survive天使</span><span class="d">2024.04.12</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-04"><div class="cover"><img src="images/mv/04_empty_puppet.jpg" alt="エンプティパペット" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">Empty Puppet</span><span class="d">2024.06.01</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-05"><div class="cover"><img src="images/mv/05_animal_party.jpg" alt="✞animaるパーティ✞開催中✞" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">✞动物派对✞正在举行✞</span><span class="d">2024.08.03</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-06"><div class="cover"><img src="images/mv/06_kohaku.jpg" alt="コハク" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">Kohaku</span><span class="d">2024.08.25</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-07"><div class="cover"><img src="images/mv/07_shinjinrui.jpg" alt="新人類は仮想世界の夢を見るか？" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">新人类会梦见虚拟世界嘛？</span><span class="d">2024.10.28</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-08"><div class="cover"><img src="images/mv/08_komyu_chakka.jpg" alt="コミュ着火Fire!" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">Commu点火Fire!</span><span class="d">2024.12.24</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-09"><div class="cover"><img src="images/mv/09_trash_life.jpg" alt="TRASH LIFE" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">TRASH LIFE</span><span class="d">2025.02.07</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-10"><div class="cover"><img src="images/mv/10_telepathy.jpg" alt="テレパシー" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">心灵感应</span><span class="d">2025.04.17</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-11"><div class="cover"><img src="images/mv/11_hi_vision.jpg" alt="Hi-Vision" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">Hi-Vision</span><span class="d">2025.04.30</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-01"><div class="cover"><img src="images/mv/01_mugen_mo_sou.jpg" alt="夢現妄想世界" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">梦现妄想世界</span><span class="d">2023.11.20</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-02"><div class="cover"><img src="images/mv/02_big_mouth.jpg" alt="BIG MOUTH" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">BIG MOUTH</span><span class="d">2024.02.23</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-03"><div class="cover"><img src="images/mv/03_genkai.jpg" alt="限界現実サバイブ天使" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">限界现实Survive天使</span><span class="d">2024.04.12</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-04"><div class="cover"><img src="images/mv/04_empty_puppet.jpg" alt="エンプティパペット" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">Empty Puppet</span><span class="d">2024.06.01</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-05"><div class="cover"><img src="images/mv/05_animal_party.jpg" alt="✞animaるパーティ✞開催中✞" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">✞动物派对✞正在举行✞</span><span class="d">2024.08.03</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-06"><div class="cover"><img src="images/mv/06_kohaku.jpg" alt="コハク" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">Kohaku</span><span class="d">2024.08.25</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-07"><div class="cover"><img src="images/mv/07_shinjinrui.jpg" alt="新人類は仮想世界の夢を見るか？" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">新人类会梦见虚拟世界嘛？</span><span class="d">2024.10.28</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-08"><div class="cover"><img src="images/mv/08_komyu_chakka.jpg" alt="コミュ着火Fire!" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">Commu点火Fire!</span><span class="d">2024.12.24</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-09"><div class="cover"><img src="images/mv/09_trash_life.jpg" alt="TRASH LIFE" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">TRASH LIFE</span><span class="d">2025.02.07</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-10"><div class="cover"><img src="images/mv/10_telepathy.jpg" alt="テレパシー" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">心灵感应</span><span class="d">2025.04.17</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-11"><div class="cover"><img src="images/mv/11_hi_vision.jpg" alt="Hi-Vision" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">Hi-Vision</span><span class="d">2025.04.30</span></div></a>
+    </div>
+  </div>
+
+  <div class="mv-row rev">
+    <div class="mv-track">
+      <a class="mv-tile" href="mv.html#mv-12"><div class="cover"><img src="images/mv/12_mayonaka.jpg" alt="真夜中遊園地" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">午夜游乐园</span><span class="d">2025.09.03</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-13"><div class="cover"><img src="images/mv/13_gradient.jpg" alt="グラディエント" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">Gradient</span><span class="d">2025.09.03</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-14"><div class="cover"><img src="images/mv/14_achiachi.jpg" alt="LET'Sあちあちトレーニング！" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">LET'S热情Training！</span><span class="d">2025.09.03</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-15"><div class="cover"><img src="images/mv/15_mewtant.jpg" alt="みゅーたんとミュータント" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">MewTant与Mutant</span><span class="d">2025.12.24</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-16"><div class="cover"><img src="images/mv/16_tuning.jpg" alt="チューニング" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">Tuning</span><span class="d">1st Album</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-17"><div class="cover"><img src="images/mv/17_chouwakusei.jpg" alt="超惑星Xへの旅" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">前往超行星X之旅</span><span class="d">2026.05.13</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-18"><div class="cover"><img src="images/mv/18_uchu.jpg" alt="うちゅうのふしぎ" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">宇宙的不可思议</span><span class="d">2026</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-19"><div class="cover"><img src="images/mv/19_face_the_next.jpg" alt="Face The Next" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">Face The Next</span><span class="d">动画插入曲</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-20"><div class="cover"><img src="images/mv/20_tearjerker.jpg" alt="TearJerker" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">TearJerker</span><span class="d">动画插入歌</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-21"><div class="cover"><img src="images/mv/21_ichiban.jpg" alt="一番のひかり" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">最耀眼的光芒</span><span class="d">动画插入曲</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-12"><div class="cover"><img src="images/mv/12_mayonaka.jpg" alt="真夜中遊園地" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">午夜游乐园</span><span class="d">2025.09.03</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-13"><div class="cover"><img src="images/mv/13_gradient.jpg" alt="グラディエント" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">Gradient</span><span class="d">2025.09.03</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-14"><div class="cover"><img src="images/mv/14_achiachi.jpg" alt="LET'Sあちあちトレーニング！" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">LET'S热情Training！</span><span class="d">2025.09.03</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-15"><div class="cover"><img src="images/mv/15_mewtant.jpg" alt="みゅーたんとミュータント" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">MewTant与Mutant</span><span class="d">2025.12.24</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-16"><div class="cover"><img src="images/mv/16_tuning.jpg" alt="チューニング" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">Tuning</span><span class="d">1st Album</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-17"><div class="cover"><img src="images/mv/17_chouwakusei.jpg" alt="超惑星Xへの旅" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">前往超行星X之旅</span><span class="d">2026.05.13</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-18"><div class="cover"><img src="images/mv/18_uchu.jpg" alt="うちゅうのふしぎ" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">宇宙的不可思议</span><span class="d">2026</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-19"><div class="cover"><img src="images/mv/19_face_the_next.jpg" alt="Face The Next" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">Face The Next</span><span class="d">动画插入曲</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-20"><div class="cover"><img src="images/mv/20_tearjerker.jpg" alt="TearJerker" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">TearJerker</span><span class="d">动画插入歌</span></div></a>
+      <a class="mv-tile" href="mv.html#mv-21"><div class="cover"><img src="images/mv/21_ichiban.jpg" alt="一番のひかり" loading="lazy"><div class="mask"></div></div><div class="cap"><span class="t">最耀眼的光芒</span><span class="d">动画插入曲</span></div></a>
+    </div>
+  </div>
+
+  <div class="mv-more"><a href="mv.html">观看全部 24 支 MV / OP / ED →</a></div>
+</section>
+
+<!-- 歌曲滚动条 -->
+<div class="quote-marquee" id="songs">
+  <div class="quote-track">
+    <span>夢現妄想世界</span><span>Empty Puppet</span><span>BIG MOUTH</span><span>真夜中遊園地</span><span>コミュ着火Fire!</span><span>Hi-Vision</span><span>夢現妄想世界</span><span>Empty Puppet</span><span>BIG MOUTH</span><span>真夜中遊園地</span><span>コミュ着火Fire!</span><span>Hi-Vision</span>
+  </div>
+</div>
+
+<!-- ============ 相关链接 ============ -->
+<section class="links-sec" id="bilibili">
+  <div class="sec-title">相关 <em>链接</em></div>
+  <p class="sec-desc">动画、MV、直播情报，认准 B 站官方账号。</p>
+  <div class="link-cards">
+    <a class="link-card" href="https://space.bilibili.com/3546592848120041" target="_blank" rel="noopener">
+      <div class="lk-title">📺 @梦限大MewType</div>
+      <div class="lk-desc">MV、迷你动画、直播与最新情报第一时间发布。</div>
+      <div class="lk-url">space.bilibili.com/3546592848120041</div>
+    </a>
+    <a class="link-card" href="https://space.bilibili.com/3546592848120041/channel/collectiondetail?sid=8404308" target="_blank" rel="noopener">
+      <div class="lk-title">🎬 TV 动画「YUME∞MITA」</div>
+      <div class="lk-desc">每周四 22:00 更新，B 站官方合集同步放送。</div>
+      <div class="lk-url">bilibili.com · 合集 8404308</div>
+    </a>
+    <a class="link-card" href="https://space.bilibili.com/3546844774796156" target="_blank" rel="noopener">
+      <div class="lk-title">🎮 @BanGDream_CN</div>
+      <div class="lk-desc">BanG Dream! 企划官方账号，全企划活动情报。</div>
+      <div class="lk-url">space.bilibili.com/3546844774796156</div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ 留言板 ============ -->
+<section id="guestbook">
+  <div class="sec-title">留言 <em>板</em></div>
+  <p class="sec-desc">无需登录，留下你想说的话。</p>
+  <div class="gb-box">
+    <div class="gb-form">
+      <div class="gb-fields">
+        <label class="gb-anon"><input type="checkbox" id="gb-anon" checked><span>匿名</span></label>
+        <input type="text" id="gb-name" class="gb-input" placeholder="昵称" maxlength="20" disabled>
+        <input type="email" id="gb-mail" class="gb-input" placeholder="邮箱（可选，不会公开）" maxlength="60">
+      </div>
+      <textarea id="gb-text" class="gb-input gb-area" placeholder="写下你的留言…" maxlength="300"></textarea>
+      <div class="gb-actions">
+        <span class="gb-count"><b id="gb-len">0</b> / 300</span>
+        <button class="gb-send" id="gb-send">发送留言</button>
+      </div>
+    </div>
+    <div class="gb-list" id="gb-list"></div>
+  </div>
+</section>
+
+<script>
+  /* ===== 留言板：服务器数据库共享（所有人可见）；API 不可用时回退 localStorage ===== */
+  (function () {
+    var KEY = 'guestbookV1';
+    var $ = function (id) { return document.getElementById(id); };
+    var anon = $('gb-anon'), name = $('gb-name'), mail = $('gb-mail'),
+        text = $('gb-text'), send = $('gb-send'), len = $('gb-len'), listEl = $('gb-list');
+    var list = [];          // 当前渲染用列表
+    var online = false;     // 服务器是否可用
+    var sending = false;
+
+    anon.addEventListener('change', function () {
+      name.disabled = anon.checked;
+      if (anon.checked) name.value = '';
+      else name.focus();
+    });
+    text.addEventListener('input', function () { len.textContent = text.value.length; });
+
+    function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+    function timeAgo(t) {
+      var s = Math.floor((Date.now() - t) / 1000);
+      if (s < 60) return '刚刚';
+      if (s < 3600) return Math.floor(s / 60) + ' 分钟前';
+      if (s < 86400) return Math.floor(s / 3600) + ' 小时前';
+      return new Date(t).toLocaleDateString('zh-CN');
+    }
+    function render() {
+      if (!list.length) {
+        listEl.innerHTML = '<p class="gb-empty">还没有留言 · 来说第一句吧</p>';
+        return;
+      }
+      var html = '';
+      for (var i = list.length - 1; i >= 0; i--) {
+        var m = list[i];
+        var avatar = '<div class="gb-ava">' + (m.name ? esc(m.name.charAt(0).toUpperCase()) : '匿') + '</div>';
+        html += '<div class="gb-cm">' + avatar +
+          '<div class="gb-main"><div class="gb-meta"><b>' + esc(m.name || '匿名') + '</b>' +
+          '<span>' + timeAgo(m.t) + '</span></div>' +
+          '<div class="gb-text">' + esc(m.text).replace(/\n/g, '<br>') + '</div></div></div>';
+      }
+      listEl.innerHTML = html;
+    }
+    function saveLocal() {
+      try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {}
+    }
+
+    // 先显示本地缓存，再尝试拉取服务器数据
+    try { list = JSON.parse(localStorage.getItem(KEY) || '[]') || []; } catch (e) { list = []; }
+    render();
+    function syncRemote() {
+      fetch('/api/guestbook').then(function (r) { return r.json(); }).then(function (j) {
+        if (j && j.list) {
+          online = true;
+          list = j.list;
+          render();
+          saveLocal();
+        }
+      }).catch(function () { /* 静态托管模式：继续用 localStorage */ });
+    }
+    syncRemote();
+    // 在线部署时每分钟同步；静态托管也能同步同浏览器其他标签页的留言。
+    setInterval(syncRemote, 60 * 1000);
+    window.addEventListener('storage', function (ev) {
+      if (ev.key !== KEY || !ev.newValue) return;
+      try { list = JSON.parse(ev.newValue) || []; render(); } catch (e) {}
+    });
+
+    send.addEventListener('click', function () {
+      if (sending) return;
+      var t = text.value.trim();
+      if (!t) { text.placeholder = '留言不能为空～'; text.focus(); return; }
+      if (!anon.checked && !name.value.trim()) { name.placeholder = '填个昵称吧'; name.focus(); return; }
+      var item = {
+        name: anon.checked ? '' : name.value.trim(),
+        mail: mail.value.trim(),
+        text: t,
+        t: Date.now()
+      };
+      function done() {
+        list.push(item);
+        saveLocal();
+        text.value = ''; mail.value = ''; len.textContent = '0';
+        render();
+      }
+      if (online) {
+        sending = true;
+        send.textContent = '发送中…';
+        fetch('/api/guestbook', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(item)
+        }).then(function (r) { return r.json(); }).then(function (j) {
+          sending = false; send.textContent = '发送留言';
+          if (j && j.ok) { item.t = j.t; done(); }
+          else done(); // 服务器拒绝也本地显示
+        }).catch(function () { sending = false; send.textContent = '发送留言'; done(); });
+      } else {
+        done();
+      }
+    });
+  })();
+</script>
+<script>
+  /* ===== Bangumi 吐槽：服务器每 2 小时直接采集 bgm.tv（/api/bgm），前端每 5 分钟自动同步，
+     页面开着不动评论也会更新；接口不可用时回退公共代理，再失败保留页面内静态快照 ===== */
+  (function () {
+    var KEY = 'bgmCommentsV2';
+    var body = document.getElementById('bgm-body');
+    var timeEl = document.getElementById('bgm-time');
+    var countEl = document.getElementById('bgm-count');
+    var lastFp = '';
+    function esc(s) {
+      var d = document.createElement('div'); d.textContent = s == null ? '' : String(s);
+      return d.innerHTML;
+    }
+    function timeAgo(t) {
+      var s = Math.floor((Date.now() - t) / 1000);
+      if (s < 60) return '刚刚';
+      if (s < 3600) return Math.floor(s / 60) + ' 分钟前';
+      if (s < 86400) return Math.floor(s / 3600) + ' 小时前';
+      return Math.floor(s / 86400) + ' 天前';
+    }
+    function fpOf(list) {
+      return JSON.stringify((list || []).slice(0, 5).map(function (c) {
+        return [c.user, c.comment, c.stars];
+      }));
+    }
+    function render(j) {
+      if (!body || !j || !j.list || !j.list.length) return;
+      var top = j.list.slice(0, 5);
+      var html = '';
+      top.forEach(function (c) {
+        var stars = c.stars ? '<span class="stars">' + '★★★★★★★★★★★'.slice(0, c.stars) + '</span>' : '';
+        var when = c.ts ? timeAgo(c.ts) : (c.time || '');
+        html += '<div class="bgm-cm"><img src="' + esc(c.avatar) + '" loading="lazy" alt="" ' +
+          'onerror="this.style.visibility=\'hidden\'">' +
+          '<div class="cm-main"><div class="cm-meta"><b>' + esc(c.user) + '</b>' + stars +
+          '<span>' + esc(c.status) + '</span><span>' + esc(when) + '</span></div>' +
+          '<div class="cm-text">' + esc(String(c.comment || '').slice(0, 160)).replace(/\n/g, '<br>') + '</div></div></div>';
+      });
+      html += '<div class="bgm-foot"><a href="https://bgm.tv/subject/583729/comments" target="_blank" rel="noopener">在 bgm.tv 查看全部吐槽 ↗</a></div>';
+      body.innerHTML = html;
+      if (countEl) countEl.textContent = top.length;
+      if (timeEl) timeEl.textContent = '更新于 ' + new Date(j.t || Date.now()).toLocaleString('zh-CN') + ' · 每 2 小时自动采集';
+    }
+    function apply(j) {
+      if (!j || !j.list || !j.list.length) return;
+      var fp = fpOf(j.list);
+      if (fp === lastFp) return;   // 内容没变化，不打扰阅读
+      lastFp = fp;
+      render(j);
+      var snapshot = { t: j.t, list: j.list.slice(0, 5) };
+      try { localStorage.setItem(KEY, JSON.stringify(snapshot)); } catch (e) {}
+      if (channel) channel.postMessage(snapshot);
+    }
+    function viaProxy() {
+      // 静态托管兜底：经公共代理直抓 bgm.tv（服务器模式用不到）
+      fetch('https://api.allorigins.win/raw?url=' +
+            encodeURIComponent('https://bgm.tv/subject/583729/comments'))
+        .then(function (r) { return r.text(); })
+        .then(function (page) {
+          var doc = new DOMParser().parseFromString(page, 'text/html');
+          var items = doc.querySelectorAll('#comment_box .item');
+          var list = [];
+          items.forEach(function (it) {
+            var name = it.querySelector('a.l');
+            var star = it.querySelector('.starlight');
+            var st = it.querySelectorAll('small.grey');
+            var timeNode = st[st.length - 1];
+            var p = it.querySelector('p.comment');
+            var av = it.querySelector('.avatarNeue');
+            if (!p) return;
+            var stars = 0;
+            if (star && /stars(\d)/.test(star.className)) stars = +RegExp.$1;
+            var avUrl = '';
+            if (av) {
+              var m = /url\('([^']+)'\)/.exec(av.getAttribute('style') || '');
+              if (m) avUrl = m[1].indexOf('//') === 0 ? 'https:' + m[1] : m[1];
+            }
+            list.push({
+              user: name ? name.textContent.trim() : '',
+              avatar: avUrl,
+              stars: stars,
+              status: st[0] ? st[0].textContent.trim() : '',
+              time: timeNode ? timeNode.textContent.replace('@', '').trim() : '',
+              ts: 0,
+              comment: p.textContent.trim()
+            });
+          });
+          if (list.length >= 3) apply({ t: Date.now(), list: list });
+        }).catch(function () { /* 双失败：保留页面内静态快照 */ });
+    }
+    function load() {
+      // 主路径：服务器采集接口（全站共享同一份快照）
+      fetch('/api/bgm').then(function (r) { return r.json(); }).then(apply).catch(viaProxy);
+    }
+    var channel = null;
+    try {
+      channel = new BroadcastChannel('yumemita-bgm-comments');
+      channel.onmessage = function (ev) { apply(ev.data); };
+    } catch (e) {}
+    window.addEventListener('storage', function (ev) {
+      if (ev.key !== KEY || !ev.newValue) return;
+      try { apply(JSON.parse(ev.newValue)); } catch (e) {}
+    });
+    // 首屏先用缓存秒开，接口回来后自动覆盖
+    try {
+      var c = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if (c && c.list && c.list.length) { lastFp = fpOf(c.list); render(c); }
+    } catch (e) {}
+    load();
+    setInterval(load, 5 * 60 * 1000);   // 每 5 分钟自动同步，无需刷新页面
+  })();
+</script>
+<script>
+  // 成员立绘：点击在官方舞台装 / 私服之间切换
+  function toggleOutfit(art) {
+    var img = art.querySelector('img');
+    var tag = art.querySelector('.switch-tag');
+    if (!img.dataset.casual) return;
+    var casual = img.dataset.casual;
+    if (!img.dataset.stage) img.dataset.stage = img.src;
+    img.classList.remove('swap');
+    void img.offsetWidth; // 重置动画
+    if (img.src === img.dataset.stage) {
+      img.src = casual;
+      tag.textContent = '舞台装 ⇄ 私服';
+    } else {
+      img.src = img.dataset.stage;
+      tag.textContent = '私服 ⇄ 舞台装';
+    }
+    img.classList.add('swap');
+  }
+</script>
+<script>
+  /* ===== 二创精选：和 fan.html 共享当前榜单；服务器、子页刷新、跨标签页都会同步。 ===== */
+  (function () {
+    var MIN_VIEW = 1000;
+    var CAT_LABEL = { m: 'MAD', c: '翻唱' };
+    var FALLBACK_COVER = ['images/fan/a01.jpg', 'images/fan/p01.jpg'];
+    var HOME_KEY = 'yumemitaFanHomeBoardV1';
+    var box = document.querySelector('.fan-cards');
+    function esc(s) {
+      var d = document.createElement('div'); d.textContent = s == null ? '' : String(s);
+      return d.innerHTML;
+    }
+    function fmt(n) { return n >= 10000 ? (n / 10000).toFixed(1) + '万' : String(n); }
+    function renderBoard(j) {
+      if (!box || !j || !j.videos) return false;
+      // 与 fan.html 相同的排名规则：硬币率优先，点赞率次之。
+      function cmpRank(a, b) {
+        var va = j.videos[a], vb = j.videos[b];
+        var ra = va.view > 0 ? va.coin / va.view : -1, rb = vb.view > 0 ? vb.coin / vb.view : -1;
+        if (ra !== rb) return rb - ra;
+        var la = va.view > 0 ? va.like / va.view : -1, lb = vb.view > 0 ? vb.like / vb.view : -1;
+        return lb - la;
+      }
+      // 两榜各取 Top1（idBase 与二创页一致：MAD 榜 fan-01、翻唱榜 fan-11）
+      var tops = [['m', 'fan-01'], ['c', 'fan-11']].map(function (cfg) {
+        var cand = Object.keys(j.videos).filter(function (bv) {
+          var v = j.videos[bv];
+          return v.cat === cfg[0] && v.view >= MIN_VIEW;
+        });
+        cand.sort(cmpRank);
+        return cand.length ? { bv: cand[0], id: cfg[1], v: j.videos[cand[0]] } : null;
+      }).filter(Boolean);
+      if (!tops.length) return false;
+      var html = '';
+      tops.forEach(function (top, i) {
+        var v = top.v;
+        var rate = v.view > 0 ? (v.like / v.view * 100).toFixed(1) + '%' : '—';
+        html += '<a class="fan-card" href="fan.html#' + top.id + '">' +
+          '<div class="cover"><img src="' + esc(v.cover) + '" loading="lazy" alt="' + esc(v.title) + '" ' +
+          'onerror="this.onerror=null;this.src=\'' + FALLBACK_COVER[i % 2] + '\'">' +
+          '<span class="rk">No.1 · ' + CAT_LABEL[v.cat] + '</span></div>' +
+          '<div class="cap"><div class="t">' + esc(v.title) + '</div>' +
+          '<div class="m"><span class="hot">🪙 ' + fmt(v.coin) + '</span><span>👍 ' + fmt(v.like) + '</span>' +
+          '<span>▶ ' + fmt(v.view) + '</span><span>赞率 ' + rate + '</span></div>' +
+          '<div class="u">UP：' + esc(v.author) + (v.date ? ' · ' + esc(v.date) : '') + '</div></div></a>';
+      });
+      box.innerHTML = html;
+      return true;
+    }
+    function readCache() {
+      try { return JSON.parse(localStorage.getItem(HOME_KEY) || 'null'); } catch (e) { return null; }
+    }
+    function cacheBoard(j) {
+      try { localStorage.setItem(HOME_KEY, JSON.stringify(j)); } catch (e) {}
+    }
+    // 先用子页生成的缓存渲染；静态托管时不再只能显示写死的首页卡片。
+    renderBoard(readCache());
+    fetch('/api/fan/board').then(function (r) { return r.json(); }).then(function (j) {
+      if (renderBoard(j)) cacheBoard(j);
+    }).catch(function () { /* 静态模式由 fan.html 发布共享快照 */ });
+    window.addEventListener('storage', function (ev) {
+      if (ev.key === HOME_KEY && ev.newValue) {
+        try { renderBoard(JSON.parse(ev.newValue)); } catch (e) {}
+      }
+    });
+    try {
+      var channel = new BroadcastChannel('yumemita-fan-board');
+      channel.onmessage = function (ev) { if (renderBoard(ev.data)) cacheBoard(ev.data); };
+    } catch (e) {}
+  })();
+</script>
+
+<footer>
+  非官方粉丝应援页 · 角色立绘来自官方站点 · © Bushiroad / Bushiroad Music · 官网 bang-dream.com/yumemita<br>
+  站长：<a href="https://bgm.tv/user/437981" target="_blank" rel="noopener" style="color:var(--blue)">bgm.tv/user/437981</a>
+</footer>
+
+</body>
+</html>
