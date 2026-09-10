@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="梦限大 Mew Type B 站二创精选榜：MMD / MAD / 翻唱 / COS，每 2 小时自动更新。">
+<meta name="theme-color" content="#FF7788">
+<title>二创精选 | 夢限大みゅーたいぷ</title>
+<!-- 中日统一在线字体：Zen Maru Gothic（日圆体优先）/ M PLUS Rounded 1c / Noto Sans SC（中文） -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Zen+Maru+Gothic:wght@500;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #FF7788;
+    --blue: #2288DD;
+    --text: #1d1d1f;
+    --text-2: #6e6e73;
+    --glass: rgba(255,255,255,.78);
+    --glass-border: rgba(255,255,255,.75);
+    --shadow: 0 8px 32px rgba(0,0,0,.08);
+    --bili: #fb7299;
+    --radius: 24px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    color: var(--text);
+    font-family: "Zen Maru Gothic", "M PLUS Rounded 1c", "Noto Sans SC",
+                 "PingFang SC", "Microsoft YaHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    background: #f5f5f7; overflow-x: hidden; letter-spacing: .01em;
+  }
+  a { color: inherit; text-decoration: none; }
+  /* 细节与可访问性 */
+  ::selection { background: rgba(255,119,136,.3); }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: #d9d9de; border-radius: 999px; border: 2px solid #f5f5f7; }
+  ::-webkit-scrollbar-thumb:hover { background: #ff99a6; }
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--pink); outline-offset: 2px;
+  }
+  [id] { scroll-margin-top: 90px; } /* 锚点定位避开吸顶导航 */
+  h1, h2, h3, h4, .sec-title, .g-title, .nav a { font-weight: 700; }
+  h1, h2, h3, .g-title { font-weight: 800; }
+
+  .bg-blobs { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+  .bg-blobs::before, .bg-blobs::after {
+    content: ""; position: absolute; border-radius: 50%; filter: blur(90px); opacity: .5;
+  }
+  .bg-blobs::before { width: 55vw; height: 55vw; top: -20vw; right: -12vw;
+    background: radial-gradient(circle, rgba(255,119,136,.4), transparent 70%); }
+  .bg-blobs::after { width: 50vw; height: 50vw; bottom: -18vw; left: -12vw;
+    background: radial-gradient(circle, rgba(34,136,221,.35), transparent 70%); }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 5vw;
+    background: rgba(255,255,255,.55); backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: .5px solid rgba(0,0,0,.08);
+  }
+  .logo { font-weight: 700; font-size: 17px; }
+  .logo b { color: var(--pink); }
+  .logo i { font-style: normal; color: var(--blue); }
+  nav .links { display: flex; gap: 28px; font-size: 14px; color: var(--text-2); white-space: nowrap; }
+  nav .links a:hover { color: var(--text); }
+  nav .links a.active { color: var(--pink); }
+
+  .page-head { padding: 66px 8vw 34px; }
+  .page-head h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 800; letter-spacing: -.01em; }
+  .page-head h1 em { font-style: normal;
+    background: linear-gradient(90deg, #FF7788, #2288DD);
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .page-head p { color: var(--text-2); margin-top: 10px; font-size: 15px; }
+
+  .wrap { padding: 0 8vw 90px; max-width: 1280px; margin: 0 auto; }
+
+  .group {
+    margin-bottom: 18px; border-radius: var(--radius); overflow: hidden;
+    background: var(--glass);
+    border: 1px solid var(--glass-border); box-shadow: var(--shadow);
+  }
+  .group-h {
+    display: flex; align-items: center; gap: 14px;
+    padding: 20px 24px; cursor: pointer; user-select: none; transition: background .2s;
+  }
+  .group-h:hover { background: rgba(255,255,255,.35); }
+  .group-h .arrow {
+    width: 0; height: 0; border-left: 7px solid var(--text-2);
+    border-top: 5px solid transparent; border-bottom: 5px solid transparent;
+    transition: transform .25s; flex-shrink: 0;
+  }
+  .group.open .group-h .arrow { transform: rotate(90deg); }
+  .group-h .g-title { font-size: 18px; font-weight: 700; }
+  .group-h .g-title em { font-style: normal;
+    background: linear-gradient(90deg, #FF7788, #2288DD);
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .group-h .g-count {
+    font-size: 12px; color: var(--text-2);
+    background: rgba(255,255,255,.6); border-radius: 999px; padding: 3px 12px;
+  }
+  .group-body { display: none; padding: 0 24px 22px; }
+  .group.open .group-body { display: block; }
+
+  .mv-item { border-top: .5px solid rgba(0,0,0,.06); }
+  .mv-item:first-child { border-top: none; }
+  .mv-h {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 4px; cursor: pointer; user-select: none; border-radius: 14px;
+    transition: background .2s;
+  }
+  .mv-h:hover { background: rgba(255,255,255,.4); }
+  .mv-h .cover {
+    width: 160px; aspect-ratio: 16/10; border-radius: 12px; overflow: hidden; flex-shrink: 0;
+    background: #000; position: relative; box-shadow: 0 4px 16px rgba(0,0,0,.12);
+  }
+  .mv-h .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mv-h .cover .mask {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    background: rgba(0,0,0,.25); opacity: 0; transition: opacity .2s;
+  }
+  .mv-h:hover .cover .mask { opacity: 1; }
+  .mv-h .cover .mask .play {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(251,114,153,.92); display: grid; place-items: center;
+  }
+  .mv-h .cover .mask .play::after {
+    content: ""; margin-left: 4px;
+    border-left: 16px solid #fff; border-top: 10px solid transparent; border-bottom: 10px solid transparent;
+  }
+  .rank {
+    flex-shrink: 0; width: 30px; height: 30px; border-radius: 10px;
+    display: grid; place-items: center; font-size: 14px; font-weight: 800; color: #fff;
+    background: linear-gradient(135deg, #FF7788, #2288DD);
+  }
+  .mv-info { flex: 1; min-width: 0; }
+  .mv-info .t { font-size: 16px; font-weight: 600; line-height: 1.5; }
+  .mv-info .t .ja { color: var(--text-2); font-size: 12.5px; font-weight: 400; margin-left: 8px; }
+  .mv-info .meta { font-size: 12px; color: var(--text-2); margin-top: 5px; display: flex; flex-wrap: wrap; gap: 6px 14px; }
+  .mv-info .meta .tag {
+    color: var(--blue); background: rgba(34,136,221,.1);
+    padding: 1px 10px; border-radius: 999px; font-size: 11px;
+  }
+  .mv-info .meta .tag.hot { color: var(--pink); background: rgba(255,119,136,.12); }
+  .mv-info .meta .tag.new {
+    color: #fff; background: linear-gradient(90deg, #FF7788, #FF9E5E);
+    font-weight: 700; display: none;
+  }
+  .mv-item.is-new .mv-info .meta .tag.new { display: inline-block; }
+  .mv-info .up { font-size: 12px; color: var(--text-2); margin-top: 3px; }
+  .mv-h .expand {
+    flex-shrink: 0; width: 0; height: 0;
+    border-left: 6px solid var(--text-2);
+    border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+    transition: transform .25s; margin-right: 4px;
+  }
+  .mv-item.open .mv-h .expand { transform: rotate(90deg); }
+
+  .mv-player { display: none; padding: 4px 4px 18px; }
+  .mv-item.open .mv-player { display: block; }
+  .mv-player .frame {
+    position: relative; width: 100%; aspect-ratio: 16/9;
+    border-radius: 16px; overflow: hidden; background: #000;
+    box-shadow: 0 8px 30px rgba(0,0,0,.15);
+  }
+  .mv-player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .mv-player .open-on-bili {
+    display: inline-block; margin-top: 12px; font-size: 13px; font-weight: 600;
+    color: #fff; background: var(--bili); border-radius: 999px; padding: 9px 20px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .mv-player .open-on-bili:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(251,114,153,.4); }
+
+  .stat-note { font-size: 12px; color: var(--text-2); text-align: center; margin: 8px 0 26px; }
+
+  .back-top {
+    position: fixed; right: 26px; bottom: 26px; z-index: 50;
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--glass);
+    border: 1px solid var(--glass-border); box-shadow: var(--shadow);
+    color: var(--text); font-size: 17px; cursor: pointer;
+    display: grid; place-items: center;
+  }
+  .back-top:hover { transform: translateY(-2px); }
+
+  footer { padding: 30px 8vw; text-align: center; color: #86868b; font-size: 12px; line-height: 2; }
+
+  /* 标题字体：站酷黄油体（圆润卡通风，与日文圆体统一气质；黄油体自带厚重感，无需假粗体） */
+  h1, .page-head h1, .group-h .g-title {
+    font-family: "ZCOOL QingKe HuangYou", "Zen Maru Gothic", "M PLUS Rounded 1c", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-weight: 400;
+  }
+
+  @media (max-width: 720px) {
+    nav { flex-direction: column; align-items: flex-start; gap: 10px; padding: 10px 5vw 12px; }
+    nav .logo { font-size: 15px; line-height: 1.2; }
+    nav .links { width: 100%; gap: 16px; font-size: 13px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    nav .links::-webkit-scrollbar { display: none; }
+    .page-head { padding: 46px 6vw 24px; }
+    .page-head p { font-size: 14px; }
+    .wrap { padding: 0 5vw 70px; }
+    .group-h { padding: 14px 14px; flex-wrap: wrap; gap: 8px 10px; }
+    .group-h .g-title { font-size: 16px; }
+    .group-body { padding: 0 12px 14px; }
+    .mv-h { gap: 9px; padding: 12px 0; }
+    .mv-h .cover { width: 104px; border-radius: 10px; }
+    .mv-h .cover .mask .play { width: 34px; height: 34px; }
+    .mv-h .cover .mask .play::after { border-left-width: 12px; border-top-width: 8px; border-bottom-width: 8px; }
+    .mv-h .expand { display: none; }
+    .rank { width: 22px; height: 22px; font-size: 12px; border-radius: 7px; }
+    .mv-info { min-width: 0; }
+    .mv-info .t { font-size: 14px; line-height: 1.45; overflow-wrap: anywhere; }
+    .mv-info .t .ja { display: block; margin: 2px 0 0; }
+    .mv-info .meta { gap: 3px 8px; font-size: 11px; }
+    .mv-info .meta .tag { font-size: 10.5px; padding: 1px 8px; }
+    .mv-info .up { font-size: 11px; overflow-wrap: anywhere; }
+    .mv-player .frame { border-radius: 12px; }
+    .back-top { right: 16px; bottom: 16px; width: 38px; height: 38px; }
+    footer { padding: 26px 6vw; font-size: 11px; }
+  }
+  @media (max-width: 360px) {
+    .mv-h { gap: 8px; }
+    .mv-h .cover { width: 88px; }
+    .rank { width: 20px; height: 20px; font-size: 11px; }
+    .mv-info .t { font-size: 13.5px; }
+    .mv-info .meta { gap: 3px 6px; }
+  }
+</style>
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+
+<div class="bg-blobs"></div>
+
+<nav>
+  <a class="logo" href="index.html">夢限大<b>Mew</b><i>Type</i></a>
+  <div class="links">
+    <a href="index.html">首页</a>
+    <a href="index.html#about">组合介绍</a>
+    <a href="index.html#chars">成员图鉴</a>
+    <a href="mv.html">MV合集</a>
+    <a href="fan.html" class="active">二创精选</a>
+    <a href="index.html#bilibili">官方链接</a>
+  </div>
+</nav>
+
+<div class="page-head">
+  <h1>二创 <em>精选</em></h1>
+  <p>按硬币率（硬币/播放）优先、点赞率次之排名 · 播放量 ≥1000 计入 · 每 2 小时自动更新榜单</p>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ 分组一：MMD / MAD / 动画类 Top10 ============ -->
+  <div class="group" id="g1">
+    <div class="group-h" onclick="toggleGroup(this)">
+      <div class="arrow"></div>
+      <div class="g-title">MMD / MAD <em>动画类 Top10</em></div>
+      <div class="g-count">10 部</div>
+    </div>
+    <div class="group-body">
+
+      <div class="mv-item" id="fan-01" data-bv="BV1h44y62Eio">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">1</div>
+          <div class="cover"><img src="images/fan/a01.jpg" loading="lazy" alt="薇藤MAD 绿色 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">薇藤 MAD「绿色」<span class="ja">第11话重置版</span></div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">2746</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">7888</b> 赞</span>
+              <span>▶ <b data-stat="view">4.6万</b></span>
+              <span>点赞率 <b data-stat="rate">17.1%</b></span>
+              <span>2026.08.29</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：zhylj</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1h44y62Eio"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1h44y62Eio">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-02" data-bv="BV1QN4R6rEGa">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">2</div>
+          <div class="cover"><img src="images/fan/a02.jpg" loading="lazy" alt="别告诉她我还想她 MAD 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">薇藤误解向 MAD「别告诉她，我还想她。」</div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">657</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">1233</b> 赞</span>
+              <span>▶ <b data-stat="view">1.5万</b></span>
+              <span>点赞率 <b data-stat="rate">8.2%</b></span>
+              <span>2026.08.27</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：雨下雫Moon</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1QN4R6rEGa"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1QN4R6rEGa">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-03" data-bv="BV1HMt864EBL">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">3</div>
+          <div class="cover"><img src="images/fan/a03.jpg" loading="lazy" alt="究极梦限大音MAD 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">究极梦限大【音MAD】<span class="ja">アルティみゅーたいぷ</span></div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">111</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">286</b> 赞</span>
+              <span>▶ <b data-stat="view">1372</b></span>
+              <span>点赞率 <b data-stat="rate">20.8%</b></span>
+              <span>2026.08.31</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：霜幻不容筱</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1HMt864EBL"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1HMt864EBL">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-04" data-bv="BV1R2tH6tExc">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">4</div>
+          <div class="cover"><img src="images/fan/a04.jpg" loading="lazy" alt="conspiracy MEME 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">薇藤 MEME「conspiracy」</div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">9</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">95</b> 赞</span>
+              <span>▶ <b data-stat="view">425</b></span>
+              <span>点赞率 <b data-stat="rate">22.4%</b></span>
+              <span>2026.08.30</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：YYYJ_error</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1R2tH6tExc"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1R2tH6tExc">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-05" data-bv="BV19obR69Esk">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">5</div>
+          <div class="cover"><img src="images/fan/a05.jpg" loading="lazy" alt="secondary option AMV 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">AMV「secondary option」</div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">33</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">137</b> 赞</span>
+              <span>▶ <b data-stat="view">743</b></span>
+              <span>点赞率 <b data-stat="rate">18.4%</b></span>
+              <span>2026.08.17</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：7utu_</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV19obR69Esk"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV19obR69Esk">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-06" data-bv="BV1N8hg6HEVt">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">6</div>
+          <div class="cover"><img src="images/fan/a06.jpg" loading="lazy" alt="四种重力系 meme 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">meme「这里有四种重力系」</div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">183</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">1638</b> 赞</span>
+              <span>▶ <b data-stat="view">1.4万</b></span>
+              <span>点赞率 <b data-stat="rate">11.9%</b></span>
+              <span>2026.08.28</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：真是块风水宝地</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1N8hg6HEVt"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1N8hg6HEVt">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-07" data-bv="BV1ak4X6BEzU">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">7</div>
+          <div class="cover"><img src="images/fan/a07.jpg" loading="lazy" alt="ベルコメン 牛郎误解向 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">vol 牛郎误解向「ベルコメン / 欢迎光临」</div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">81</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">291</b> 赞</span>
+              <span>▶ <b data-stat="view">1998</b></span>
+              <span>点赞率 <b data-stat="rate">14.6%</b></span>
+              <span>2026.08.30</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：一般路过术术人</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1ak4X6BEzU"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1ak4X6BEzU">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-08" data-bv="BV1Pkt86PE2u">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">8</div>
+          <div class="cover"><img src="images/fan/a08.jpg" loading="lazy" alt="byeMewtype 音mad 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">自作曲音 MAD「byeMewtype」</div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">13</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">63</b> 赞</span>
+              <span>▶ <b data-stat="view">385</b></span>
+              <span>点赞率 <b data-stat="rate">16.4%</b></span>
+              <span>2026.08.31</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：尘莎草</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1Pkt86PE2u"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1Pkt86PE2u">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-09" data-bv="BV1NstH6CESs">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">9</div>
+          <div class="cover"><img src="images/fan/a09.jpg" loading="lazy" alt="出山 MAD 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">藤薇 MAD「出山」</div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">19</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">31</b> 赞</span>
+              <span>▶ <b data-stat="view">223</b></span>
+              <span>点赞率 <b data-stat="rate">13.9%</b></span>
+              <span>2026.08.30</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：列位诸公-各位百官</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1NstH6CESs"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1NstH6CESs">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-10" data-bv="BV1V3tW6cEfP">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">10</div>
+          <div class="cover"><img src="images/fan/a10.jpg" loading="lazy" alt="薇藤告白同人 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">薇藤同人「假如薇欧拉迷途知返，向藤都子告白」</div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">79</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">223</b> 赞</span>
+              <span>▶ <b data-stat="view">2057</b></span>
+              <span>点赞率 <b data-stat="rate">10.8%</b></span>
+              <span>2026.08.30</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：钢板爱肘击</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1V3tW6cEfP"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1V3tW6cEfP">在 B 站观看 ↗</a></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ 分组二：翻唱 / COS / 解说等 Top10 ============ -->
+  <div class="group" id="g2">
+    <div class="group-h" onclick="toggleGroup(this)">
+      <div class="arrow"></div>
+      <div class="g-title">翻唱 / COS / <em>解说等 Top10</em></div>
+      <div class="g-count">10 部</div>
+    </div>
+    <div class="group-body">
+
+      <div class="mv-item" id="fan-11" data-bv="BV1nu4Z6iEeQ">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">1</div>
+          <div class="cover"><img src="images/fan/p01.jpg" loading="lazy" alt="宇宙的不可思议男生翻唱 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">ED「宇宙的不可思议」男生翻唱</div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">90</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">1759</b> 赞</span>
+              <span>▶ <b data-stat="view">3947</b></span>
+              <span>点赞率 <b data-stat="rate">44.6%</b></span>
+              <span>2026.08.29</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：今歌奏井</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1nu4Z6iEeQ"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1nu4Z6iEeQ">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-12" data-bv="BV1Xd4S6wEbV">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">2</div>
+          <div class="cover"><img src="images/fan/p02.jpg" loading="lazy" alt="睦柜子塔科夫小番外 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">睦柜子の塔科夫小番外「每周四准时观看梦限大的 PMC 们」</div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">970</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">3678</b> 赞</span>
+              <span>▶ <b data-stat="view">3.8万</b></span>
+              <span>点赞率 <b data-stat="rate">9.8%</b></span>
+              <span>2026.08.30</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：獠牙Fangs</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1Xd4S6wEbV"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1Xd4S6wEbV">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-13" data-bv="BV1PWK46PEp8">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">3</div>
+          <div class="cover"><img src="images/fan/p03.jpg" loading="lazy" alt="乃酱翻唱ED 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">乃酱「梦限大 ED！试着唱了 🎶」</div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">140</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">3408</b> 赞</span>
+              <span>▶ <b data-stat="view">1.0万</b></span>
+              <span>点赞率 <b data-stat="rate">32.6%</b></span>
+              <span>2026.07.21</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：乃酱乃酱</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1PWK46PEp8"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1PWK46PEp8">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-14" data-bv="BV1Botu6AEdd">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">4</div>
+          <div class="cover"><img src="images/fan/p04.jpg" loading="lazy" alt="Muzzle Flash 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">「マズルフラッシュ！」<span class="ja">青木阳菜 × 仲町阿拉蕾</span></div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">499</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">1521</b> 赞</span>
+              <span>▶ <b data-stat="view">1.1万</b></span>
+              <span>点赞率 <b data-stat="rate">14.3%</b></span>
+              <span>2026.09.01</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：青木阳菜_STAFF</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1Botu6AEdd"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1Botu6AEdd">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-15" data-bv="BV1arun6MEpp">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">5</div>
+          <div class="cover"><img src="images/fan/p05.jpg" loading="lazy" alt="阿拉蕾COS编舞 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">阿拉蕾 COS「跳了什么！」<span class="ja">原创编舞</span></div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">34</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">522</b> 赞</span>
+              <span>▶ <b data-stat="view">1917</b></span>
+              <span>点赞率 <b data-stat="rate">27.2%</b></span>
+              <span>2026.08.06</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：茠OoO</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1arun6MEpp"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1arun6MEpp">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-16" data-bv="BV1ST3d6NEj9">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">6</div>
+          <div class="cover"><img src="images/fan/p06.jpg" loading="lazy" alt="儿歌温柔翻唱 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">「试着温柔一点地唱了儿歌！」<span class="ja">梦限大 ED</span></div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">29</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">256</b> 赞</span>
+              <span>▶ <b data-stat="view">1159</b></span>
+              <span>点赞率 <b data-stat="rate">22.1%</b></span>
+              <span>2026.08.02</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：阿蘼_Ammi</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1ST3d6NEj9"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1ST3d6NEj9">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-17" data-bv="BV1HqMF64E3g">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">7</div>
+          <div class="cover"><img src="images/fan/p07.jpg" loading="lazy" alt="ニコカラ ED 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">ニコカラ「うちゅうのふしぎ」<span class="ja">on/off vocal</span></div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">312</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">2441</b> 赞</span>
+              <span>▶ <b data-stat="view">3.1万</b></span>
+              <span>点赞率 <b data-stat="rate">8.0%</b></span>
+              <span>2026.07.04</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：morisumi</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1HqMF64E3g"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1HqMF64E3g">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-18" data-bv="BV1J4KV69EF3">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">8</div>
+          <div class="cover"><img src="images/fan/p08.jpg" loading="lazy" alt="键盘cover 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">「全部，一起来寻找吧！」键盘 Cover<span class="ja">附谱</span></div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">276</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">969</b> 赞</span>
+              <span>▶ <b data-stat="view">1.1万</b></span>
+              <span>点赞率 <b data-stat="rate">9.2%</b></span>
+              <span>2026.07.17</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：翎澔_Ryncea</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1J4KV69EF3"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1J4KV69EF3">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-19" data-bv="BV1uztn6LEAF">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">9</div>
+          <div class="cover"><img src="images/fan/p09.jpg" loading="lazy" alt="うちゅうのふしぎ翻唱 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">「今日要和你一起唱怎样的歌？」<span class="ja">うちゅうのふしぎ</span></div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">25</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">27</b> 赞</span>
+              <span>▶ <b data-stat="view">167</b></span>
+              <span>点赞率 <b data-stat="rate">16.2%</b></span>
+              <span>2026.09.01</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：琼榆系咩啊</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1uztn6LEAF"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1uztn6LEAF">在 B 站观看 ↗</a></div>
+      </div>
+
+      <div class="mv-item" id="fan-20" data-bv="BV1A8bD6oEyC">
+        <div class="mv-h" onclick="toggleMv(this)">
+          <div class="rank">10</div>
+          <div class="cover"><img src="images/fan/p10.jpg" loading="lazy" alt="OP合成器cover 封面"><div class="mask"><div class="play"></div></div></div>
+          <div class="mv-info">
+            <div class="t">阿拉蕾生贺「全网第一个梦限大 OP 合成器 Cover」</div>
+            <div class="meta">
+              <span class="tag hot">🪙 <b data-stat="coin">41</b> 硬币</span>
+              <span class="tag">👍 <b data-stat="like">298</b> 赞</span>
+              <span>▶ <b data-stat="view">2079</b></span>
+              <span>点赞率 <b data-stat="rate">14.3%</b></span>
+              <span>2026.08.16</span>
+              <span class="tag new">NEW</span>
+            </div>
+            <div class="up">UP：KeyboardheroQaQ</div>
+          </div>
+          <div class="expand"></div>
+        </div>
+        <div class="mv-player"><div class="frame" data-bvid="BV1A8bD6oEyC"></div><a class="open-on-bili" target="_blank" rel="noopener" data-bvid="BV1A8bD6oEyC">在 B 站观看 ↗</a></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ 分组三：往期精选（落榜保留一周） ============ -->
+  <div class="group" id="g-past">
+    <div class="group-h" onclick="toggleGroup(this)">
+      <div class="arrow"></div>
+      <div class="g-title">往期 <em>精选</em></div>
+      <div class="g-count" id="past-count">0 部</div>
+      <div style="font-size:11px;color:#86868b;font-weight:400;">过往一周作品</div>
+    </div>
+    <div class="group-body" id="past-body"></div>
+  </div>
+
+  <p class="stat-note" id="fan-note">数据每 2 小时自动刷新 · 播放量 ≥1000 计入排名 · 页面每 5 分钟自动同步</p>
+
+</div>
+
+<button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">↑</button>
+
+<footer>
+  粉丝自制非官方应援页 · 版权归 Bushiroad / 三次元 / Craft Egg 所有<br>
+  二创视频版权归各 UP 主所有，数据来自 B 站公开接口
+</footer>
+
+<script>
+  // 分组折叠
+  function toggleGroup(h) {
+    h.parentElement.classList.toggle('open');
+  }
+  // ===== B 站嵌入播放器（aid + bvid + cid 完整格式） =====
+  const MV_DATA = {
+    "BV1h44y62Eio": { aid: 117177814352446, cid: 41390966922 },
+    "BV1QN4R6rEGa": { aid: 117167395708756, cid: 41328577968 },
+    "BV1HMt864EBL": { aid: 117189877176462, cid: 41463450011 },
+    "BV1R2tH6tExc": { aid: 117183971592796, cid: 41428912885 },
+    "BV19obR69Esk": { aid: 117105722788034, cid: 40970946258 },
+    "BV1N8hg6HEVt": { aid: 117154812790978, cid: 41245147303 },
+    "BV1ak4X6BEzU": { aid: 117183132733572, cid: 41422358624 },
+    "BV1Pkt86PE2u": { aid: 117189575182976, cid: 41461219340 },
+    "BV1NstH6CESs": { aid: 117184273582023, cid: 41431008367 },
+    "BV1V3tW6cEfP": { aid: 117185263438817, cid: 41437170073 },
+    "BV1nu4Z6iEeQ": { aid: 117169408969823, cid: 41340962304 },
+    "BV1Xd4S6wEbV": { aid: 117180867811994, cid: 41410695113 },
+    "BV1PWK46PEp8": { aid: 116956103515426, cid: 40141979826 },
+    "BV1Botu6AEdd": { aid: 117193886927541, cid: 41484419734 },
+    "BV1arun6MEpp": { aid: 117047774216373, cid: 40651525128 },
+    "BV1ST3d6NEj9": { aid: 117026668418071, cid: 40537818659 },
+    "BV1HqMF64E3g": { aid: 116860574047895, cid: 40917470511 },
+    "BV1J4KV69EF3": { aid: 116930434370380, cid: 40016413461 },
+    "BV1uztn6LEAF": { aid: 117184709925041, cid: 41434220014 },
+    "BV1A8bD6oEyC": { aid: 117104414163975, cid: 40962886069 },
+    // 往期
+    "BV1JmhG6mE5M": { aid: 117155383287723, cid: 41250392386 },
+    "BV1pGuj6rEsw": { aid: 117063595072401, cid: 40737637280 }
+  };
+  function injectPlayer(frame) {
+    if (!frame || frame.dataset.loaded) return;
+    const bv = frame.dataset.bvid;
+    const info = MV_DATA[bv] || {};
+    const params = new URLSearchParams({
+      aid: info.aid || '', bvid: bv, cid: info.cid || '',
+      page: 1, high_quality: 1, danmaku: 0, autoplay: 0
+    });
+    const ifr = document.createElement('iframe');
+    ifr.src = 'https://player.bilibili.com/player.html?' + params.toString();
+    ifr.allow = 'fullscreen; encrypted-media';
+    ifr.setAttribute('allowfullscreen', '');
+    ifr.scrolling = 'no';
+    ifr.referrerPolicy = 'no-referrer-when-downgrade';
+    frame.appendChild(ifr);
+    frame.dataset.loaded = '1';
+  }
+  function toggleMv(h) {
+    const item = h.parentElement;
+    if (!item.classList.contains('open')) injectPlayer(item.querySelector('.frame'));
+    item.classList.toggle('open');
+  }
+  document.querySelectorAll('.open-on-bili').forEach(a => {
+    a.href = 'https://www.bilibili.com/video/' + a.dataset.bvid;
+  });
+  document.getElementById('g1').classList.add('open');
+
+  /* ===== 动态榜单引擎 =====
+     每日经公共代理拉取候选池最新数据：播放量 ≥1000 才计入排名，
+     按硬币率（硬币/播放）优先、点赞率（点赞/播放）次之排序；
+     落榜作品自动移入「往期精选」保留 7 天；并尝试搜索发现新投稿 */
+  (function () {
+    var DAY = 86400000, KEEP_DAYS = 7, MIN_VIEW = 1000, TOP_N = 10;
+    var LS_KEY = 'fanDyn';
+    var PROXY = 'https://api.allorigins.win/raw?url=';
+    // 候选池：m = MMD/MAD 动画类；c = 翻唱/COS/解说类；past = 曾上榜
+    var BASE_POOL = {
+      m: ['BV1h44y62Eio','BV1QN4R6rEGa','BV1HMt864EBL','BV1R2tH6tExc','BV19obR69Esk',
+          'BV1N8hg6HEVt','BV1ak4X6BEzU','BV1Pkt86PE2u','BV1NstH6CESs','BV1V3tW6cEfP'],
+      c: ['BV1nu4Z6iEeQ','BV1Xd4S6wEbV','BV1PWK46PEp8','BV1Botu6AEdd','BV1arun6MEpp',
+          'BV1ST3d6NEj9','BV1HqMF64E3g','BV1J4KV69EF3','BV1uztn6LEAF','BV1A8bD6oEyC'],
+      past: ['BV1JmhG6mE5M','BV1pGuj6rEsw']
+    };
+    var PAST_SEED = {
+      'BV1JmhG6mE5M': { cat: 'c', t: '二两解说「官方短篇大结局：再见了薇欧拉！」', up: '某二两', cover: 'images/fan/11.jpg' },
+      'BV1pGuj6rEsw': { cat: 'c', t: 'TearJerker 一人二役翻唱', up: '樱_さくら', cover: 'images/fan/12.jpg' }
+    };
+
+    // ---- 缓存（stats / meta / disc / hist 全部持久化，跨访问共享演进） ----
+    var cache = null;
+    try { cache = JSON.parse(localStorage.getItem(LS_KEY) || 'null'); } catch (e) {}
+    if (!cache) cache = {};
+    cache.t = cache.t || 0;
+    cache.meta = cache.meta || {};   // bv → 元数据（接口/搜索获取）
+    cache.stats = cache.stats || {}; // bv → {coin, like, view}
+    cache.disc = cache.disc || {};   // 自动发现的新视频 bv → 分类
+    cache.hist = cache.hist || {};   // 上榜历史 bv → {on, off}
+
+    // ---- 首屏兜底：读取静态快照的元数据与数据 ----
+    var meta = {}, stats = {}, staticCover = {};
+    document.querySelectorAll('#g1 .mv-item, #g2 .mv-item').forEach(function (item) {
+      var bv = item.dataset.bv;
+      var tEl = item.querySelector('.t');
+      var spans = item.querySelectorAll('.meta span');
+      function num(k) {
+        var el = item.querySelector('[data-stat="' + k + '"]');
+        if (!el) return 0;
+        var s = el.textContent, v = parseFloat(s.replace('万', ''));
+        return isNaN(v) ? 0 : (/万/.test(s) ? Math.round(v * 10000) : v);
+      }
+      var img = item.querySelector('.cover img');
+      staticCover[bv] = img ? img.getAttribute('src') : '';
+      meta[bv] = {
+        cat: item.closest('#g1') ? 'm' : 'c',
+        t: tEl ? tEl.childNodes[0].textContent.trim() : bv,
+        ja: tEl && tEl.querySelector('.ja') ? tEl.querySelector('.ja').textContent : '',
+        cover: staticCover[bv],
+        up: item.querySelector('.up') ? item.querySelector('.up').textContent.replace(/^UP：/, '') : '',
+        date: spans[4] ? spans[4].textContent : ''
+      };
+      stats[bv] = { coin: num('coin'), like: num('like'), view: num('view') };
+    });
+    Object.keys(PAST_SEED).forEach(function (bv) { if (!meta[bv]) meta[bv] = PAST_SEED[bv]; });
+    // 缓存数据优先于静态快照；缓存元数据补充静态快照里没有的视频
+    Object.keys(cache.stats).forEach(function (bv) { stats[bv] = cache.stats[bv]; });
+    Object.keys(cache.meta).forEach(function (bv) { if (!meta[bv]) meta[bv] = cache.meta[bv]; });
+    Object.keys(cache.disc).forEach(function (bv) { if (!meta[bv]) meta[bv] = { cat: cache.disc[bv], t: bv }; });
+
+    // ---- 工具 ----
+    function fmt(n) { return n >= 10000 ? (n / 10000).toFixed(1) + '万' : String(n); }
+    function dateStr(ts) {
+      var d = new Date(ts * 1000);
+      return d.getFullYear() + '.' + ('0' + (d.getMonth() + 1)).slice(-2) + '.' + ('0' + d.getDate()).slice(-2);
+    }
+    function absPic(p) { return !p ? '' : (p.indexOf('//') === 0 ? 'https:' + p : p.replace(/^http:/, 'https:')); }
+    function isNew(bv) {
+      var m = meta[bv] || {};
+      return !!m.pub && (Date.now() / 1000 - m.pub < 7 * 86400);
+    }
+
+    // ---- 候选池 = 静态池 + 自动发现 + 历史回池 ----
+    function pool(cat) {
+      var seen = {}, list = [];
+      function add(bv) { if (bv && !seen[bv]) { seen[bv] = 1; list.push(bv); } }
+      BASE_POOL[cat].forEach(add);
+      Object.keys(cache.disc).forEach(function (bv) { if (cache.disc[bv] === cat) add(bv); });
+      Object.keys(cache.hist).forEach(function (bv) { if ((meta[bv] || {}).cat === cat) add(bv); });
+      BASE_POOL.past.forEach(function (bv) { if ((meta[bv] || PAST_SEED[bv] || {}).cat === cat) add(bv); });
+      return list;
+    }
+
+    // 首页读取这份轻量快照：本页刷新后，首页精选随即同步为当前 Top1。
+    var HOME_KEY = 'yumemitaFanHomeBoardV1';
+    var homeChannel = null;
+    try { homeChannel = new BroadcastChannel('yumemita-fan-board'); } catch (e) {}
+    function ranked(cat) {
+      return pool(cat).filter(function (bv) { return (stats[bv] || {}).view >= MIN_VIEW; }).sort(function (a, b) {
+        var sa = stats[a] || {}, sb = stats[b] || {};
+        var ra = sa.view > 0 ? sa.coin / sa.view : -1, rb = sb.view > 0 ? sb.coin / sb.view : -1;
+        if (ra !== rb) return rb - ra;
+        var la = sa.view > 0 ? sa.like / sa.view : -1, lb = sb.view > 0 ? sb.like / sb.view : -1;
+        return lb - la;
+      });
+    }
+    function publishHomeBoard() {
+      var videos = {};
+      ['m', 'c'].forEach(function (cat) {
+        var bv = ranked(cat)[0];
+        if (!bv) return;
+        var m = meta[bv] || {}, s = stats[bv] || {};
+        videos[bv] = { cat: cat, title: m.t || bv, cover: m.cover || staticCover[bv] || '',
+          author: m.up || '', date: m.date || '', coin: s.coin || 0, like: s.like || 0, view: s.view || 0 };
+      });
+      if (!Object.keys(videos).length) return;
+      var snapshot = { t: Date.now(), videos: videos };
+      try { localStorage.setItem(HOME_KEY, JSON.stringify(snapshot)); } catch (e) {}
+      if (homeChannel) homeChannel.postMessage(snapshot);
+    }
+
+    // ---- 渲染 ----
+    function itemHTML(bv, rank, id) {
+      var m = meta[bv] || {}, s = stats[bv] || { coin: 0, like: 0, view: 0 };
+      var rate = s.view > 0 ? (s.like / s.view * 100).toFixed(1) + '%' : '—';
+      return '<div class="mv-item' + (isNew(bv) ? ' is-new' : '') + '" id="' + id + '" data-bv="' + bv + '">' +
+        '<div class="mv-h" onclick="toggleMv(this)">' +
+        '<div class="rank">' + rank + '</div>' +
+        '<div class="cover"><img src="' + (m.cover || '') + '" loading="lazy" alt="">' +
+        '<div class="mask"><div class="play"></div></div></div>' +
+        '<div class="mv-info"><div class="t">' + (m.t || bv) +
+        (m.ja ? '<span class="ja">' + m.ja + '</span>' : '') + '</div>' +
+        '<div class="meta"><span class="tag hot">🪙 <b data-stat="coin">' + fmt(s.coin) + '</b> 硬币</span>' +
+        '<span class="tag">👍 <b data-stat="like">' + fmt(s.like) + '</b> 赞</span>' +
+        '<span>▶ <b data-stat="view">' + fmt(s.view) + '</b></span>' +
+        '<span>点赞率 <b data-stat="rate">' + rate + '</b></span>' +
+        (m.date ? '<span>' + m.date + '</span>' : '') +
+        '</div><div class="up">UP：' + (m.up || '未知') + '</div></div>' +
+        '<div class="expand"></div></div>' +
+        '<div class="mv-player"><div class="frame" data-bvid="' + bv + '"></div>' +
+        '<a class="open-on-bili" target="_blank" rel="noopener" data-bvid="' + bv + '">在 B 站观看 ↗</a></div></div>';
+    }
+    function bindLinks(root) {
+      root.querySelectorAll('.open-on-bili').forEach(function (a) {
+        a.href = 'https://www.bilibili.com/video/' + a.dataset.bvid;
+      });
+    }
+
+    function render(updateHist, skipLocate) {
+      var onList = [];
+      [['m', 'g1', 1], ['c', 'g2', 11]].forEach(function (cfg) {
+        var cat = cfg[0], gid = cfg[1], idBase = cfg[2];
+        // 播放量 ≥ 1000 才计入排名
+        var list = pool(cat).filter(function (bv) { return (stats[bv] || {}).view >= MIN_VIEW; });
+        list.sort(function (a, b) {
+          var sa = stats[a] || {}, sb = stats[b] || {};
+          var ra = sa.view > 0 ? sa.coin / sa.view : -1, rb = sb.view > 0 ? sb.coin / sb.view : -1;
+          if (ra !== rb) return rb - ra;                       // 硬币率优先
+          var la = sa.view > 0 ? sa.like / sa.view : -1, lb = sb.view > 0 ? sb.like / sb.view : -1;
+          return lb - la;                                       // 点赞率次之
+        });
+        var top = list.slice(0, TOP_N), html = '';
+        top.forEach(function (bv, i) {
+          html += itemHTML(bv, i + 1, 'fan-' + ('0' + (idBase + i)).slice(-2));
+          onList.push(bv);
+        });
+        var body = document.querySelector('#' + gid + ' .group-body');
+        body.innerHTML = html;
+        bindLinks(body);
+        var count = document.querySelector('#' + gid + ' .g-count');
+        if (count) count.textContent = top.length + ' 部';
+      });
+
+      // 上榜 / 落榜历史
+      var now = Date.now();
+      if (updateHist) {
+        onList.forEach(function (bv) { cache.hist[bv] = { on: now, off: 0 }; });
+        Object.keys(cache.hist).forEach(function (bv) {
+          if (!cache.hist[bv].off && onList.indexOf(bv) < 0) cache.hist[bv].off = now;
+        });
+      }
+
+      // 往期精选（落榜保留 7 天）
+      var past = [];
+      Object.keys(cache.hist).forEach(function (bv) {
+        var h = cache.hist[bv];
+        if (h.off && now - h.off < KEEP_DAYS * DAY && onList.indexOf(bv) < 0) past.push({ bv: bv, off: h.off });
+      });
+      past.sort(function (a, b) { return b.off - a.off; });
+      var pbody = document.getElementById('past-body');
+      var pcount = document.getElementById('past-count');
+      if (pcount) pcount.textContent = past.length + ' 部';
+      if (!past.length) {
+        pbody.innerHTML = '<p style="padding:14px 0;font-size:13px;color:var(--text-2)">暂无落榜作品 · 有视频跌出 Top10 时会自动移入此处保留一周</p>';
+      } else {
+        var html = '';
+        past.forEach(function (p, i) {
+          var m = meta[p.bv] || {}, s = stats[p.bv] || {};
+          html += '<div class="mv-item" id="fan-p' + (i + 1) + '" data-bv="' + p.bv + '">' +
+            '<div class="mv-h" onclick="toggleMv(this)">' +
+            '<div class="rank" style="background:#b6b6bb">往</div>' +
+            '<div class="cover"><img src="' + (m.cover || '') + '" loading="lazy" alt=""><div class="mask"><div class="play"></div></div></div>' +
+            '<div class="mv-info"><div class="t">' + (m.t || p.bv) + '</div>' +
+            '<div class="meta"><span>落榜 ' + new Date(p.off).toLocaleDateString('zh-CN') + '</span>' +
+            (s.coin ? '<span class="tag hot">🪙 ' + fmt(s.coin) + '</span><span class="tag">👍 ' + fmt(s.like) + '</span>' : '') +
+            '</div>' + (m.up ? '<div class="up">UP：' + m.up + '</div>' : '') +
+            '</div><div class="expand"></div></div>' +
+            '<div class="mv-player"><div class="frame" data-bvid="' + p.bv + '"></div>' +
+            '<a class="open-on-bili" target="_blank" rel="noopener" data-bvid="' + p.bv + '">在 B 站观看 ↗</a></div></div>';
+        });
+        pbody.innerHTML = html;
+        bindLinks(pbody);
+      }
+
+      if (!skipLocate) locateHash();
+      publishHomeBoard();
+      var note = document.getElementById('fan-note');
+      if (note) note.textContent = '数据更新于 ' + new Date(cache.t || Date.now()).toLocaleString('zh-CN') +
+        ' · 每 2 小时自动刷新 · 播放量 ≥ ' + MIN_VIEW + ' 计入排名';
+    }
+
+    function save() {
+      try { localStorage.setItem(LS_KEY, JSON.stringify(cache)); } catch (e) {}
+    }
+
+    // ---- URL hash 定位（来自首页二创区跳转，渲染后调用） ----
+    function locateHash() {
+      var hash = decodeURIComponent(location.hash);
+      if (!/^#fan-(p)?\d+$/.test(hash)) return;
+      var target = document.querySelector('.mv-item' + hash);
+      if (!target) return;
+      var group = target.closest('.group');
+      if (group) group.classList.add('open');
+      injectPlayer(target.querySelector('.frame'));
+      target.classList.add('open');
+      setTimeout(function () { target.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 100);
+    }
+
+    // ---- 拉取最新统计（分批 5 个/次，经公共代理；部分失败时沿用旧值） ----
+    function fetchStats(bvs, done) {
+      var i = 0, got = 0;
+      function batch() {
+        var chunk = bvs.slice(i, i + 5); i += 5;
+        Promise.all(chunk.map(function (bv) {
+          return fetch(PROXY + encodeURIComponent('https://api.bilibili.com/x/web-interface/view?bvid=' + bv))
+            .then(function (r) { return r.json(); })
+            .then(function (j) {
+              if (!j || !j.data || !j.data.stat) return;
+              got++;
+              cache.stats[bv] = { coin: j.data.stat.coin, like: j.data.stat.like, view: j.data.stat.view };
+              stats[bv] = cache.stats[bv];
+              cache.meta[bv] = {
+                cat: (meta[bv] || {}).cat || 'm',
+                t: j.data.title,
+                ja: (meta[bv] || {}).ja || '',
+                cover: staticCover[bv] || absPic(j.data.pic),
+                up: j.data.owner ? j.data.owner.name : '',
+                date: dateStr(j.data.pubdate),
+                pub: j.data.pubdate
+              };
+              meta[bv] = cache.meta[bv];
+            }).catch(function () {});
+        })).then(function () {
+          if (i < bvs.length) setTimeout(batch, 400);
+          else done(got);
+        }).catch(function () { done(got); });
+      }
+      if (bvs.length) batch(); else done(0);
+    }
+
+    // ---- 自动发现新投稿（B 站搜索接口经公共代理，可能被风控，失败静默） ----
+    function discover() {
+      var q = 'https://api.bilibili.com/x/web-interface/search/type?search_type=video&keyword=' +
+              encodeURIComponent('梦限大') + '&order=pubdate&page=1';
+      fetch(PROXY + encodeURIComponent(q)).then(function (r) { return r.json(); }).then(function (j) {
+        if (!j || !j.data || !j.data.result) return;
+        var fresh = [];
+        j.data.result.forEach(function (v) {
+          var bv = v.bvid;
+          if (!bv || cache.disc[bv] || BASE_POOL.m.indexOf(bv) >= 0 || BASE_POOL.c.indexOf(bv) >= 0 ||
+              BASE_POOL.past.indexOf(bv) >= 0) return;
+          var title = String(v.title || '').replace(/<[^>]+>/g, '');
+          if (!/梦限大|みゅーたいぷ|ゆめ∞みた|梦限/.test(title)) return;
+          if (Date.now() / 1000 - (v.pubdate || 0) > 90 * 86400) return;
+          var cat = /(翻唱|cover|Cover|COVER|唱|COS|cos|Cos|钢琴|键盘|合成器|解说|吐槽|生贺|弹)/.test(title) ? 'c' : 'm';
+          cache.disc[bv] = cat;
+          meta[bv] = { cat: cat, t: title, ja: '', cover: absPic(v.pic), up: v.author || '', date: dateStr(v.pubdate), pub: v.pubdate };
+          stats[bv] = v.stat ? { coin: v.stat.coin, like: v.stat.like, view: v.stat.view } : { coin: 0, like: 0, view: 0 };
+          fresh.push(bv);
+        });
+        if (fresh.length) {
+          fetchStats(fresh, function () {
+            cache.t = Date.now();
+            render(true);
+            save();
+          });
+        }
+      }).catch(function () {});
+    }
+
+    function refresh() {
+      var all = pool('m').concat(pool('c'));
+      var uniq = all.filter(function (bv, i) { return all.indexOf(bv) === i; });
+      fetchStats(uniq, function (got) {
+        if (got > 0) {
+          cache.t = Date.now();
+          render(true);
+          save();
+        }
+        discover();
+      });
+    }
+
+    // ---- 启动：优先服务器共享榜单（server.py /api/fan/board，全站访客同一份数据），
+    //           接口不可用（纯静态托管）时回退本地引擎 ----
+    function startLocal() {
+      if (!Object.keys(cache.hist).length) {
+        // 首次访问：初始化上榜历史（往期种子直接置为落榜状态）
+        var now0 = Date.now();
+        BASE_POOL.past.forEach(function (bv) { cache.hist[bv] = { on: 0, off: now0 }; });
+        render(true);
+        save();
+        refresh();
+      } else if (cache.t && Date.now() - cache.t < DAY) {
+        render(false);
+      } else {
+        render(false);
+        refresh();
+      }
+    }
+    function applyServer(j, isAuto) {
+      // 服务器数据：videos（含自动发现的新投稿）+ hist（上落榜历史，全站共享）
+      cache.disc = {};
+      Object.keys(j.videos || {}).forEach(function (bv) {
+        var v = j.videos[bv];
+        meta[bv] = { cat: v.cat, t: v.title, ja: '',
+                     cover: staticCover[bv] || v.cover,
+                     up: v.author, date: v.date, pub: v.pub };
+        stats[bv] = { coin: v.coin, like: v.like, view: v.view };
+        if (BASE_POOL.m.indexOf(bv) < 0 && BASE_POOL.c.indexOf(bv) < 0 &&
+            BASE_POOL.past.indexOf(bv) < 0) cache.disc[bv] = v.cat;
+      });
+      cache.hist = j.hist || {};
+      cache.t = j.t || Date.now();
+      render(false, isAuto);
+      save();
+      var note = document.getElementById('fan-note');
+      if (note) note.textContent = '数据更新于 ' + new Date(cache.t).toLocaleString('zh-CN') +
+        ' · 服务器每 2 小时刷新（全站共享） · 播放量 ≥ ' + MIN_VIEW + ' 计入排名';
+    }
+    // ---- 页面开着不动也自动同步：每 5 分钟拉一次榜单，数据变化才重渲染，
+    //      且正在观看视频（有展开项）时不打断 ----
+    var lastFp = null;
+    function boardFp(j) {
+      var parts = [];
+      Object.keys(j.videos || {}).forEach(function (bv) {
+        var v = j.videos[bv];
+        parts.push(bv + ':' + v.coin + ',' + v.like + ',' + v.view);
+      });
+      parts.sort();
+      return parts.join('|') + '#' + JSON.stringify(j.hist || {});
+    }
+    function autoSync() {
+      if (document.querySelector('.mv-item.open')) return;   // 有展开的播放器时不打断
+      fetch('/api/fan/board').then(function (r) { return r.json(); }).then(function (j) {
+        if (!j || !j.videos) return;
+        var fp = boardFp(j);
+        if (lastFp !== null && fp === lastFp) return;         // 数据没变化
+        lastFp = fp;
+        applyServer(j, true);
+      }).catch(function () {});
+    }
+    fetch('/api/fan/board').then(function (r) { return r.json(); })
+      .then(function (j) { if (j && j.videos) { applyServer(j, false); lastFp = boardFp(j); } else startLocal(); })
+      .catch(function () { startLocal(); });
+    setInterval(autoSync, 5 * 60 * 1000);
+  })();
+</script>
+</body>
+</html>
